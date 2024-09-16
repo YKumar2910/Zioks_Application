@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:zioks_application/image_mapper.dart';
 
+// ignore: must_be_immutable
 class ConfirmationPage extends StatefulWidget {
+  late List<String> lines;
   final String text;
 
-  const ConfirmationPage({super.key,required this.text});
+  ConfirmationPage({super.key,required this.text}) {
+    lines=text.split(RegExp(r'\r?\n'));
+  }
 
   @override
   State<ConfirmationPage> createState() => _ConfirmationPageState();
@@ -13,6 +18,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -21,25 +28,71 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             Text(
               "Confirmation",
               style: TextStyle(
-                fontSize: 20,
-                color: Colors.teal.shade300,
-              ),
-            ),
-            const Spacer(flex:2),
-            Text(
-              "Hi ${widget.text}",
-              style: const TextStyle(
                 fontSize: 30,
-                color: Colors.black,
+                color: Colors.teal.shade400,
               ),
             ),
-            const Spacer(flex:2),
-            const Image(image: AssetImage("assets\freepik-export-20240822133548eLgG.jpeg"))
-          ],
+            const Spacer(),
+            SizedBox(
+              height:200,
+              child: ListView.builder(
+                itemCount: widget.lines.length,
+                itemBuilder: (context,index){
 
+                  return Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      index==0?"Hi ${widget.lines[index]}":widget.lines[index],
+                      style: TextStyle(
+                        fontSize: index==0?40:25,
+                        color: Colors.black,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade300,width:4)
+              ),
+              child: Image(
+                height: 400,
+                width: 350,
+                image: AssetImage(
+                  imageMapper['personsImage'] as String
+                ),
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.teal.shade400,
+                fixedSize: const Size(300,75 ),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7.5))
+                )
+
+              ),
+              onPressed: (){}, 
+              child: Text(
+                widget.lines.length==1?"Confirm Check in":"Confirm Check out",
+                style: const TextStyle(
+                  fontSize: 25,
+                  color: Colors.white
+                ),
+              )
+            ),
+            const Spacer(flex:2),
+          ],
+          
         ),
       ),
 
     );
   }
 }
+
+/* */
