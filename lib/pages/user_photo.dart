@@ -55,7 +55,7 @@ class _UserPhotoState extends State<UserPhoto> {
                   ? Container(
                       decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                       child: Image(
-                        image: AssetImage('assets/images/freepik-export-20240822133548eLgG.jpeg'),
+                        image: AssetImage('assets/images/personimage.jpeg'),
                         height: screenHeight * 0.3, // 30% of screen height
                         width: screenWidth * 0.5, // 50% of screen width
                       ),
