@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "Zioks-CheckApplication",
-      home: ConfirmationPage(text: "Kshitij Jaiswal \n $exitnote"),
+      
     );
   }
 }
