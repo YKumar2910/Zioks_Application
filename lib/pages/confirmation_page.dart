@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zioks_application/image_mapper.dart';
+import 'package:zioks_application/const_values_file.dart';
+import 'package:zioks_application/pages/user_photo.dart';
 
 // ignore: must_be_immutable
 class ConfirmationPage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           index==0?"Hi ${widget.lines[index]}":widget.lines[index],
                           style: TextStyle(
                             fontSize: index==0?fontSizeTextLarge :fontSizeTextSmall,
-                            color: Colors.black,
+                            color: index==0?Colors.blueGrey.shade300:Colors.black,
                           ),
                         ),
                       );
@@ -91,7 +92,15 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     )
           
                   ),
-                  onPressed: (){}, 
+                  onPressed: (){
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context){
+                          return UserPhoto(); //Replace with HomePage class
+                        }
+                      )
+                    );
+                  }, 
                   child: Text(
                     noOflines==1?"Confirm Check in":"Confirm Check out",
                     style: TextStyle(
@@ -100,7 +109,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     ),
                   )
                 ),
-                const Spacer(flex:2),
+                const Spacer(flex:3),
               ],
               
             ),
