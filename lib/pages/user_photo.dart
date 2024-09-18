@@ -44,7 +44,7 @@ class _UserPhotoState extends State<UserPhoto> {
                 'User Photo',
                 style: TextStyle(
                   fontSize: screenWidth * 0.1, // Font size is 10% of the screen width
-                  color: Colors.teal.shade500,
+                  color: Colors.teal.shade400,
                 ),
               ),
               
