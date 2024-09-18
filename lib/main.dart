@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/user_photo.dart';
 import 'pages/purposepage.dart';
-
+import 'pages/deatilspage.dart';
 import 'package:zioks_application/pages/confirmation_page.dart';
 
 void main() {
@@ -15,6 +15,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      home: Purpose(),);
+      home: Details(),);
   }
 }
