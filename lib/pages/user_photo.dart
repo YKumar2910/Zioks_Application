@@ -117,11 +117,15 @@ class _UserPhotoState extends State<UserPhoto> {
                           });
                         }
                       },
-                      child: Text(
-                        'Retake',
-                        style: TextStyle(fontSize: screenWidth * 0.05), // Font size is 5% of screen width
-                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
+                          SizedBox(width: 8,),
+                          Icon(Icons.refresh, size: screenWidth*0.05),
+                          ],
                     ),
+                  ),
                   ),
 
                   // Next button
@@ -147,10 +151,14 @@ class _UserPhotoState extends State<UserPhoto> {
                           },
                         );
                       },
-                      child: Text(
-                        'Next',
-                        style: TextStyle(fontSize: screenWidth * 0.05), // Font size is 5% of screen width
-                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
+                          SizedBox(width: 20,),
+                          Icon(Icons.arrow_forward, size: screenWidth*0.05),
+                        ]
+                      )
                     ),
                   ),
                 ],
