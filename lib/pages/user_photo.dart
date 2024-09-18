@@ -139,18 +139,7 @@ class _UserPhotoState extends State<UserPhoto> {
                         ),
                         backgroundColor: Colors.teal.shade400,
                       ),
-                      onPressed: () {
-                        // Handle Next button press
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Next'),
-                              content: Text('Next button pressed.'),
-                            );
-                          },
-                        );
-                      },
+                      onPressed: () => Navigator.pushNamed(context, '/'),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[

@@ -13,7 +13,7 @@ class _PurposeState extends State<Purpose> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    List<String> purposeList = ['Official', 'Vendor', 'Personal', 'Others'];
+    List<String> purposeList = ['Official', 'Vendor', 'Personal', 'Others'];//Dynamic list for the purpose of visit
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -23,13 +23,14 @@ class _PurposeState extends State<Purpose> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(height: screenHeight*0.1,),
                 Text(
                   'Please select your purpose',
-                  style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.teal.shade400),
+                  style: TextStyle(fontSize: screenWidth * 0.06, color: Color.fromRGBO(0, 176, 147, 1)),
                 ),
                 SizedBox(height: screenHeight * 0.2),
                 
-                // Dynamically create cards from the list
+                // Cards have been created dynamically using the list.
                 ...purposeList.map((purpose) {
                   return Column(
                     children: [
@@ -40,16 +41,16 @@ class _PurposeState extends State<Purpose> {
                         },
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: screenWidth * 0.05, right: screenWidth * 0.05, top: 8), // Adjust padding
+                        padding: EdgeInsets.only(left: screenWidth * 0.05, right: screenWidth * 0.05, top: 8), // Padding for the Last activity
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Text(
                             'Last Activity: 18-09-2024',
-                            style: TextStyle(color: Colors.teal.shade400, fontSize: 20),
+                            style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: 30),
                           ),
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.05), // Spacing between cards
+                      SizedBox(height: screenHeight * 0.05), // Spacing between Purpose cards
                     ],
                   );
                 }).toList(),
@@ -69,7 +70,8 @@ class _PurposeState extends State<Purpose> {
       child: Container(
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.teal),
+
+          border: Border.all(color: Color.fromRGBO(0, 176, 147, 1), width: screenWidth*0.003),
           borderRadius: BorderRadius.circular(10),
         ),
         // Card width is 90% of screen width
@@ -77,12 +79,12 @@ class _PurposeState extends State<Purpose> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.person, color: Colors.teal),
+            Icon(Icons.person, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.08),
             Text(
               label,
-              style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.teal),
+              style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.teal,),
             ),
-            Icon(Icons.arrow_forward, color: Colors.teal),
+            Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.08,),
           ],
         ),
       ),
