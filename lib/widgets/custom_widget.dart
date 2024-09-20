@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController cont;
   final String message;
-  String? Function(String?)? validator;
-  
-  final dynamic emptyMessage;
-  TextFieldWidget({
-    super.key, 
-    required this.message,
-    required this.cont, 
-    this.validator,
-    required this.emptyMessage
-  });
+  const TextFieldWidget({super.key, required this.message,required this.cont});
 
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
+    return TextField(
               controller: cont,
               decoration:  InputDecoration(
                       hintText: (message), 
@@ -25,13 +15,7 @@ class TextFieldWidget extends StatelessWidget {
                         color: Colors.grey
                       ),
                     ),
-              keyboardType: TextInputType.text,
-              validator: validator?? (value){
-                if(value==null || value.isEmpty){
-                  return emptyMessage;
-                }
-                return null;
-              },
+              keyboardType: TextInputType.name,
             );
   }
 }
@@ -66,4 +50,3 @@ class TextWidget extends StatelessWidget {
     );
   }
 }
-
