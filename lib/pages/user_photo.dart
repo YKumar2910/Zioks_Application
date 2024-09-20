@@ -120,9 +120,9 @@ class _UserPhotoState extends State<UserPhoto> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[
-                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
-                          SizedBox(width: 8,),
-                          Icon(Icons.refresh, size: screenWidth*0.05),
+                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.04)), // Font size is 5% of screen width)
+                          SizedBox(width: 7,),
+                          Icon(Icons.refresh, size: screenWidth*0.04),
                           ],
                     ),
                   ),
@@ -143,9 +143,9 @@ class _UserPhotoState extends State<UserPhoto> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[
-                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
-                          SizedBox(width: 20,),
-                          Icon(Icons.arrow_forward, size: screenWidth*0.05),
+                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.04)), // Font size is 5% of screen width)
+                          SizedBox(width: 17,),
+                          Icon(Icons.arrow_forward, size: screenWidth*0.04),
                         ]
                       )
                     ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
+import 'package:zioks_application/pages/checkInOTP.dart';
+import 'package:zioks_application/pages/checkOut.dart';
 
 class PhoneNumber extends StatefulWidget {
   const PhoneNumber({super.key});
@@ -10,104 +12,60 @@ class PhoneNumber extends StatefulWidget {
 }
 
 class _PhoneNumberState extends State<PhoneNumber> {
+  final TextEditingController _controller = TextEditingController(); // Controller for the TextField
+
+  void _input(String text) {
+    setState(() {
+      _controller.text += text; // Append the tapped number to the TextField
+    });
+  }
+
+  void _backspace() {
+    setState(() {
+      if (_controller.text.isNotEmpty) {
+        _controller.text = _controller.text.substring(0, _controller.text.length - 1); // Remove the last character
+      }
+    });
+  }
+
+  void _done() {
+    print("Done with number: ${_controller.text}");
+    // Handle the done action, such as submitting the phone number or navigating
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Getting screen width and height using MediaQuery
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
-          child: Column(
-            children: [
-              _CheckIn(),
-              _ToggleButton(),
-              _MobileNumber(),
-              _KeyPad(),
-            ],
-          ),
+        child: Column(
+          children: [
+            _CheckIn(screenHeight * 0.05), // Adjusted for screen height
+            _ToggleButton(screenWidth * 0.8), // Adjusted for screen width
+            _MobileNumber(screenWidth * 0.9), // Adjusted for screen width
+            _NextButton(screenWidth * 0.4, context), // Adjusted for screen width
+            _KeyPad(screenWidth * 0.6, screenHeight * 0.6), // Adjusted for screen width
+          ],
+        ),
       ),
     );
   }
 
-  Widget _CheckIn() {
+  Widget _CheckIn(double topPadding) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40.0),
+      padding: EdgeInsets.only(top: topPadding, bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Check-In',
-          style: TextStyle(
-            color: Color.fromRGBO(0, 176, 147, 1),
-            fontSize: 30,
-          ),)
-        ],
-      ),
-    );
-  }
-
-  Widget _ToggleButton() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Center the box horizontally in the row
-        children: [
-          Container(
-            width: 300, // [Adjust the width of the box as needed]
-            height: 50, // [Adjust the height of the box as needed]
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), // [Set the border radius for rounded corners]
-              border: Border.all(color: Colors.black, width: 1), // [Set the border color and thickness]
-            ),
-            child: Row(
-              children: [
-                // [First half: Mobile Number]
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(0, 176, 147, 1), // [Set background color of the first half to teal]
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10), // [Rounded corners for top-left]
-                        bottomLeft: Radius.circular(10), // [Rounded corners for bottom-left]
-                      ),
-                    ),
-                    alignment: Alignment.center, // [Center the text vertically and horizontally]
-                    child: Text(
-                      'Mobile Number',
-                      style: TextStyle(
-                        color: Colors.white, // [Text color set to white]
-                        fontSize: 16, // [Set font size for the text]
-                      ),
-                    ),
-                  ),
-                ),
-
-                // [Second half: Have QR]
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CheckInScanQR()), // Navigate to the ScanQR page
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white, // [Set background color of the second half to white]
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10), // [Rounded corners for top-right]
-                          bottomRight: Radius.circular(10), // [Rounded corners for bottom-right]
-                        ),
-                      ),
-                      alignment: Alignment.center, // [Center the text vertically and horizontally]
-                      child: Text(
-                        'Have QR',
-                        style: TextStyle(
-                          color: Colors.black, // [Text color set to black]
-                          fontSize: 16, // [Set font size for the text]
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          Text(
+            'Check-In',
+            style: TextStyle(
+              color: Color.fromRGBO(0, 176, 147, 1),
+              fontSize: 30,
             ),
           ),
         ],
@@ -115,51 +73,160 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
-  Widget _MobileNumber() {
+  Widget _ToggleButton(double containerWidth) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 25.0, right: 25.0),
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Center(
+        child: Container(
+          width: containerWidth,
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black, width: 1),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(0, 176, 147, 1),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Mobile Number',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CheckInScanQR()),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Have QR',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _NextButton(double buttonWidth, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, right: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          GestureDetector(
+            onTap: () {
+              // Navigate to OTP page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CheckInOTP()),
+              );
+            },
+            child: Container(
+              width: buttonWidth,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(0, 176, 147, 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Next',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 45),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _MobileNumber(double containerWidth) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30),
       child: Container(
+        width: containerWidth,
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: Colors.grey, // Bottom border color
-              width: 1.5, // Thickness of the bottom border
+              color: Colors.grey,
+              width: 1.5,
             ),
           ),
         ),
         child: Row(
           children: [
-            // Country Flag
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Image.asset(
-                'assets/images/world_16397066.png', // Path to your flag image
+                'assets/images/world_16397066.png',
                 width: 30,
                 height: 20,
               ),
             ),
-
-            // Country Code
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Text(
-                '+91', // Country code, can be dynamic
+                '+91',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.black,
                 ),
               ),
             ),
-
-            // Mobile Number Input
             Expanded(
               child: TextField(
+                controller: _controller,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Enter Mobile Number',
                   border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey), // Bottom border color
-                  ),// No border for input
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
@@ -169,43 +236,43 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
-  Widget _KeyPad() {
+  Widget _KeyPad(double containerWidth, double containerHeight) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40.0),
+      padding: const EdgeInsets.only(top: 50.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Center the keypad vertically
-        crossAxisAlignment: CrossAxisAlignment.stretch, // Center the keypad horizontally
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildButton('1'),
-              _buildButton('2'),
-              _buildButton('3'),
+              _buildButton('1', containerWidth),
+              _buildButton('2', containerWidth),
+              _buildButton('3', containerWidth),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildButton('4'),
-              _buildButton('5'),
-              _buildButton('6'),
+              _buildButton('4', containerWidth),
+              _buildButton('5', containerWidth),
+              _buildButton('6', containerWidth),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildButton('7'),
-              _buildButton('8'),
-              _buildButton('9'),
+              _buildButton('7', containerWidth),
+              _buildButton('8', containerWidth),
+              _buildButton('9', containerWidth),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildButton(''),
-              _buildButton('0'),
-              _buildButton('⌫', onPressed: _backspace),
+              _buildButton('⌫', containerWidth, onPressed: _backspace),
+              _buildButton('0', containerWidth),
+              _buildButton('√', containerWidth, onPressed: _done),
             ],
           ),
         ],
@@ -213,33 +280,33 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
-  Widget _buildButton(String text, {VoidCallback? onPressed}) {
-    return Container(
-      margin: EdgeInsets.all(8.0), // Margin between buttons for spacing
-      child: ElevatedButton(
-        onPressed: onPressed ?? () => _input(text),
-        style: ElevatedButton.styleFrom(
-          shape: CircleBorder(), // Circular shape
-          padding: EdgeInsets.all(16), // Adjust button size
-          side: BorderSide(color: Colors.black, width: 2),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 15, // Adjust font size if needed
-            color: Colors.black,
+  Widget _buildButton(String text, double containerWidth, {VoidCallback? onPressed}) {
+    double buttonSize = containerWidth * 0.2; // Button size as 25% of container width
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Container(
+        width: buttonSize,
+        height: buttonSize, // Ensure the container is square
+        margin: EdgeInsets.all(4.0),
+        child: ElevatedButton(
+          onPressed: onPressed ?? () => _input(text),
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(buttonSize * 0.3), // Padding relative to button size
+            side: BorderSide(color: Colors.black, width: 1),
+          ),
+          child: FittedBox( // Ensures text scales well with the button size
+            fit: BoxFit.scaleDown,
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: buttonSize * 0.4, // Text size is 40% of button size
+                color: Colors.black,
+              ),
+            ),
           ),
         ),
       ),
     );
   }
-
-  void _input(String text) {
-    // Handle input text
-  }
-
-  void _backspace() {
-    // Handle backspace
-  }
-
 }
