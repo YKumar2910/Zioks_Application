@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:zioks_application/pages/visitor_info.dart';
+
+import 'pages/user_photo.dart';
+import 'pages/purposepage.dart';
+import 'pages/deatilspage.dart';
+import 'package:zioks_application/pages/confirmation_page.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -7,13 +12,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      title: "Zioks-CheckApplication",
-      home: VisitorInfo()
-    );
+    return  MaterialApp(
+      home: Details(),);
   }
 }

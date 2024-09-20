@@ -44,7 +44,7 @@ class _UserPhotoState extends State<UserPhoto> {
                 'User Photo',
                 style: TextStyle(
                   fontSize: screenWidth * 0.1, // Font size is 10% of the screen width
-                  color: Colors.teal.shade500,
+                  color: Colors.teal.shade400,
                 ),
               ),
               
@@ -117,11 +117,15 @@ class _UserPhotoState extends State<UserPhoto> {
                           });
                         }
                       },
-                      child: Text(
-                        'Retake',
-                        style: TextStyle(fontSize: screenWidth * 0.05), // Font size is 5% of screen width
-                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
+                          SizedBox(width: 8,),
+                          Icon(Icons.refresh, size: screenWidth*0.05),
+                          ],
                     ),
+                  ),
                   ),
 
                   // Next button
@@ -135,22 +139,15 @@ class _UserPhotoState extends State<UserPhoto> {
                         ),
                         backgroundColor: Colors.teal.shade400,
                       ),
-                      onPressed: () {
-                        // Handle Next button press
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Next'),
-                              content: Text('Next button pressed.'),
-                            );
-                          },
-                        );
-                      },
-                      child: Text(
-                        'Next',
-                        style: TextStyle(fontSize: screenWidth * 0.05), // Font size is 5% of screen width
-                      ),
+                      onPressed: () => Navigator.pushNamed(context, '/'),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
+                          SizedBox(width: 20,),
+                          Icon(Icons.arrow_forward, size: screenWidth*0.05),
+                        ]
+                      )
                     ),
                   ),
                 ],
