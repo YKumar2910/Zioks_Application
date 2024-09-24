@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:zioks_application/routes.dart';
 
 class Purpose extends StatefulWidget {
   @override
@@ -37,7 +38,7 @@ class _PurposeState extends State<Purpose> {
                       buildCard(
                         label: purpose,
                         onPressed: () {
-                          print('$purpose card pressed');
+                          Navigator.pushNamed(context, MyRoutes.deatilspageRoute);
                         },
                       ),
                       Padding(
