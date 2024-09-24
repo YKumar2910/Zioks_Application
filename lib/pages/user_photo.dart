@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:zioks_application/routes.dart';
 
 class UserPhoto extends StatefulWidget {
   @override
@@ -148,6 +149,17 @@ class _UserPhotoState extends State<UserPhoto> {
                               Icon(Icons.arrow_forward, size: screenWidth*0.04),
                             ]
                         )
+                        backgroundColor: Colors.teal.shade400,
+                      ),
+                      onPressed: () => Navigator.pushNamed(context, MyRoutes.purposepageRoute),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
+                          SizedBox(width: 20,),
+                          Icon(Icons.arrow_forward, size: screenWidth*0.05),
+                        ]
+                      )
                     ),
                   ),
                 ],

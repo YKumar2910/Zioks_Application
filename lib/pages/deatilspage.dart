@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:zioks_application/routes.dart';
 
 class Details extends StatefulWidget {
   @override
@@ -148,16 +149,7 @@ class _DetailsState extends State<Details> {
                   SizedBox(height: 32),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Process data
-                          print('First Name: ${_firstNameController.text}');
-                          print('Last Name: ${_lastNameController.text}');
-                          print('Email ID: ${_emailController.text}');
-                          print('Address: ${_addressController.text}');
-                          print('Mobile Number: ${_mobileNumberController.text}');
-                        }
-                      },
+                      onPressed:() => Navigator.pushNamed(context, MyRoutes.purposepageRoute),
                       child: Text('Next'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal,
@@ -181,7 +173,7 @@ class _DetailsState extends State<Details> {
     );
   }
 
-  // Helper method to build each TextFormField with fixed label and red asterisk
+  // Helper method to build each TextFormField
   Widget _buildTextFormField({
     required String label,
     required TextEditingController controller,
