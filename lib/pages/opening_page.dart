@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/checkOut.dart';
+import 'package:zioks_application/routes.dart';
 
 class OpeningPage extends StatefulWidget {
   const OpeningPage({super.key});
@@ -66,9 +67,9 @@ class _OpeningPageState extends State<OpeningPage> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(builder: (context) => Checkout()),
+                MyRoutes.checkOutRoute
               );
             },
 
