@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
+import 'package:zioks_application/routes.dart';
 
 class PhoneNumber extends StatefulWidget {
   const PhoneNumber({super.key});
@@ -83,9 +84,9 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(builder: (context) => CheckInScanQR()), // Navigate to the ScanQR page
+                        MyRoutes.checkInScanQRRoute // Navigate to the ScanQR page
                       );
                     },
                     child: Container(
