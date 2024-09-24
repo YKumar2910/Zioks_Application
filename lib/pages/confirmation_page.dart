@@ -31,7 +31,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           double fontSizeTextLarge = screenWidth < 600 ? 30 : 40;
           double fontSizeTextSmall = screenWidth < 600 ? 18 : 25;
           double imageWidth = screenWidth < 600 ? screenWidth * 0.55 : 350;
-          double imageHeight = screenWidth < 600 ? screenWidth * 0.6 : 400;
+          double imageHeight = screenWidth < 600 ? screenWidth * 0.6 : 300;
           double buttonWidth = screenWidth < 600 ? screenWidth * 0.5 : 300;
           double buttonHeight = screenWidth < 600 ? 50 : 75;
           final int noOflines=widget.lines.length;
