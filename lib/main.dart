@@ -5,7 +5,6 @@ import 'pages/deatilspage.dart';
 import 'package:zioks_application/pages/confirmation_page.dart';
 import 'routes.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -25,6 +24,5 @@ class MyApp extends StatelessWidget {
   },
 
       );
-
   }
 }
