@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:zioks_application/pages/CheckInPhone.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/user_photo.dart';
 
@@ -12,25 +10,38 @@ class CheckInOTP extends StatefulWidget {
 }
 
 class _CheckInOTPState extends State<CheckInOTP> {
-  final TextEditingController _controller = TextEditingController();
+  final List<TextEditingController> _controllers =
+  List.generate(5, (_) => TextEditingController());
+  int _currentIndex = 0;
 
   void _input(String text) {
-    setState(() {
-      _controller.text += text; // Append the tapped number to the TextField
-    });
+    if (_currentIndex < 5) {
+      setState(() {
+        _controllers[_currentIndex].text = text;
+        if (_currentIndex < 4) {
+          _currentIndex++;
+        }
+      });
+    }
   }
 
   void _backspace() {
     setState(() {
-      if (_controller.text.isNotEmpty) {
-        _controller.text = _controller.text.substring(0, _controller.text.length - 1); // Remove the last character
+      if (_currentIndex > 0) {
+        if (_controllers[_currentIndex].text.isEmpty) {
+          _currentIndex--;
+        }
+        _controllers[_currentIndex].clear();
+      } else if (_currentIndex == 0) {
+        _controllers[_currentIndex].clear();
       }
     });
   }
 
   void _done() {
-    print("Done with number: ${_controller.text}");
-    // Handle the done action, such as submitting the phone number or navigating
+    String otp = _controllers.map((e) => e.text).join();
+    print("Done with OTP: $otp");
+    // Handle the done action, such as submitting the OTP or navigating
   }
 
   @override
@@ -81,32 +92,6 @@ class _CheckInOTPState extends State<CheckInOTP> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: screenHeight * 0.02),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(5, (index) {
-                return Container(
-                  width: screenWidth * 0.1,
-                  height: screenHeight * 0.06,
-                  margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.black,
-                        width: 2.0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '', // Placeholder for the OTP digit
-                      style: TextStyle(fontSize: screenWidth * 0.06),
-                    ),
-                  ),
-                );
-              }),
-            ),
           ],
         ),
       ),
@@ -114,8 +99,43 @@ class _CheckInOTPState extends State<CheckInOTP> {
   }
 
   Widget _BorderButton(double screenWidth, double screenHeight) {
+    Widget _buildOTPField(int index) {
+      return Container(
+        width: screenWidth * 0.1,
+        height: screenHeight * 0.06,
+        margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.black,
+              width: 2.0,
+            ),
+          ),
+        ),
+        child: Center(
+          child: TextField(
+            controller: _controllers[index],
+            keyboardType: TextInputType.none, // Disable native keyboard
+            textAlign: TextAlign.center,
+            maxLength: 1,
+            readOnly: true, // Make the field read-only
+            style: TextStyle(fontSize: screenWidth * 0.05),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              counterText: '',
+            ),
+          ),
+        ),
+      );
+    }
+
     return Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(5, (index) => _buildOTPField(index)),
+        ),
+        SizedBox(height: screenHeight * 0.02), // Space between OTP and buttons
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,7 +146,8 @@ class _CheckInOTPState extends State<CheckInOTP> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Color.fromRGBO(0, 176, 147, 1), width: 2),
+                border: Border.all(
+                    color: Color.fromRGBO(0, 176, 147, 1), width: 2),
               ),
               child: Center(
                 child: Padding(
@@ -162,10 +183,10 @@ class _CheckInOTPState extends State<CheckInOTP> {
             SizedBox(width: screenWidth * 0.02),
             GestureDetector(
               onTap: () {
-                // Navigate to UserPhoto page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserPhoto()),
+                  MaterialPageRoute(
+                      builder: (context) => UserPhoto()), // Replace with your actual route
                 );
               },
               child: Container(
@@ -249,7 +270,8 @@ class _CheckInOTPState extends State<CheckInOTP> {
     );
   }
 
-  Widget _buildButton(String text, double containerWidth, {VoidCallback? onPressed}) {
+  Widget _buildButton(String text, double containerWidth,
+      {VoidCallback? onPressed}) {
     double buttonSize = containerWidth * 0.2; // Button size as 25% of container width
     return Padding(
       padding: EdgeInsets.only(top: containerWidth * 0.05),
