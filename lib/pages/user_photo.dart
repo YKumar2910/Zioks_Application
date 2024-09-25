@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:zioks_application/routes.dart';
 
 class UserPhoto extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class UserPhoto extends StatefulWidget {
 }
 
 class _UserPhotoState extends State<UserPhoto> {
-  File? _image; //Stores the image
+  File? _image;
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _takePhoto() async {
@@ -25,7 +26,6 @@ class _UserPhotoState extends State<UserPhoto> {
 
   @override
   Widget build(BuildContext context) {
-    // Get screen dimensions for responsiveness
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -37,42 +37,39 @@ class _UserPhotoState extends State<UserPhoto> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: screenHeight * 0.05), // 5% of the screen height
-              
-              // "User Photo" Text
+              SizedBox(height: screenHeight * 0.05),
+
               Text(
                 'User Photo',
                 style: TextStyle(
-                  fontSize: screenWidth * 0.1, // Font size is 10% of the screen width
+                  fontSize: screenWidth * 0.1,
                   color: Colors.teal.shade400,
                 ),
               ),
-              
-              SizedBox(height: screenHeight * 0.05), // 5% of screen height
 
-              // Display placeholder or captured image
+              SizedBox(height: screenHeight * 0.05),
+
               _image == null
                   ? Container(
-                      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                      child: Image(
-                        image: AssetImage('assets/images/personimage.jpeg'),
-                        height: screenHeight * 0.3, // 30% of screen height
-                        width: screenWidth * 0.5, // 50% of screen width
-                      ),
-                    )
+                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                child: Image(
+                  image: AssetImage('assets/images/personimage.jpeg'),
+                  height: screenHeight * 0.3,
+                  width: screenWidth * 0.5,
+                ),
+              )
                   : Image.file(
-                      _image!,
-                      height: screenHeight * 0.3, // 30% of screen height
-                      width: screenWidth * 0.5, // 50% of screen width
-                      fit: BoxFit.cover,
-                    ),
-              
-              SizedBox(height: screenHeight * 0.05), // 5% of screen height
+                _image!,
+                height: screenHeight * 0.3,
+                width: screenWidth * 0.5,
+                fit: BoxFit.cover,
+              ),
 
-              // Take Photo button
+              SizedBox(height: screenHeight * 0.05),
+
               SizedBox(
-                width: screenWidth * 0.6, // Button width is 60% of screen width
-                height: screenHeight * 0.08, // Button height is 8% of screen height
+                width: screenWidth * 0.6,
+                height: screenHeight * 0.08,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -83,21 +80,19 @@ class _UserPhotoState extends State<UserPhoto> {
                   onPressed: _takePhoto,
                   child: Text(
                     'Take Photo',
-                    style: TextStyle(fontSize: screenWidth * 0.05), // Font size is 5% of screen width
+                    style: TextStyle(fontSize: screenWidth * 0.05),
                   ),
                 ),
               ),
-              
-              SizedBox(height: screenHeight * 0.05), // 5% of screen height
 
-              // Row with Retake and Next buttons
+              SizedBox(height: screenHeight * 0.05),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Retake button
                   SizedBox(
-                    width: screenWidth * 0.3, // Button width is 30% of screen width
-                    height: screenHeight * 0.08, // Button height is 8% of screen height
+                    width: screenWidth * 0.3,
+                    height: screenHeight * 0.08,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -119,19 +114,18 @@ class _UserPhotoState extends State<UserPhoto> {
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:[
-                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
-                          SizedBox(width: 8,),
-                          Icon(Icons.refresh, size: screenWidth*0.05),
-                          ],
+                        children: [
+                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.04)),
+                          SizedBox(width: 7),
+                          Icon(Icons.refresh, size: screenWidth * 0.04),
+                        ],
+                      ),
                     ),
                   ),
-                  ),
 
-                  // Next button
                   SizedBox(
-                    width: screenWidth * 0.3, // Button width is 30% of screen width
-                    height: screenHeight * 0.08, // Button height is 8% of screen height
+                    width: screenWidth * 0.3,
+                    height: screenHeight * 0.08,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -139,21 +133,21 @@ class _UserPhotoState extends State<UserPhoto> {
                         ),
                         backgroundColor: Colors.teal.shade400,
                       ),
-                      onPressed: () => Navigator.pushNamed(context, '/'),
+                      onPressed: () => Navigator.pushNamed(context, MyRoutes.purposepageRoute),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:[
-                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.05)), // Font size is 5% of screen width)
-                          SizedBox(width: 20,),
-                          Icon(Icons.arrow_forward, size: screenWidth*0.05),
-                        ]
-                      )
+                        children: [
+                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.04)),
+                          SizedBox(width: 17),
+                          Icon(Icons.arrow_forward, size: screenWidth * 0.04),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-              
-              SizedBox(height: screenHeight * 0.05), // 5% of screen height
+
+              SizedBox(height: screenHeight * 0.05),
             ],
           ),
         ),
