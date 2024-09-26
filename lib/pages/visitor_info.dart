@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zioks_application/const_values_file.dart';
 import 'package:zioks_application/pages/confirmation_page.dart';
 import 'package:zioks_application/widgets/custom_chip_widget.dart';
 import 'package:zioks_application/widgets/custom_widget.dart';
@@ -55,7 +54,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
           reasonSelected=true;
           Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) {
-          return Checkout();
+          return ConfirmationPage(text: "Kshitij Jaiswal");
         }));
       }
     } else {
