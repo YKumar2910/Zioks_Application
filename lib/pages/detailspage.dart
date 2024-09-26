@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:zioks_application/routes.dart';
 
@@ -138,6 +140,17 @@ class _DetailsState extends State<Details> {
                                 decoration: InputDecoration(
                                   border: UnderlineInputBorder(),
                                 ),
+                                // validatorMessage: 'Please enter your email ID', 
+                                validator: (value) 
+                                {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your Phone number';
+                                  }
+                                  if (!(value.length == 10)) {
+                                    return 'Please enter a valid Phone Number';
+                                  }
+                                  return null;
+                                } ,
                                 keyboardType: TextInputType.phone,
                               ),
                             ),
