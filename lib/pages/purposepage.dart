@@ -47,7 +47,7 @@ class _PurposeState extends State<Purpose> {
                           alignment: Alignment.centerRight,
                           child: Text(
                             'Last Activity: 18-09-2024',
-                            style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: 30),
+                            style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: screenWidth*0.02),
                           ),
                         ),
                       ),
@@ -85,7 +85,7 @@ class _PurposeState extends State<Purpose> {
               label,
               style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.teal,),
             ),
-            Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.03,),
+            Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.05,),
           ],
         ),
       ),
