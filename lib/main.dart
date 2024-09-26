@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'pages/user_photo.dart';
 import 'pages/opening_page.dart';
 import 'pages/purposepage.dart';
-import 'pages/deatilspage.dart';
+import 'pages/detailspage.dart';
 import 'pages/confirmation_page.dart';
 import 'pages/CheckInPhone.dart';
 import 'pages/checkInScanQR.dart';

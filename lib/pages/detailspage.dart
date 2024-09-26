@@ -148,7 +148,12 @@ class _DetailsState extends State<Details> {
                     SizedBox(height: 25),
                     Center(
                       child: ElevatedButton(
-                        onPressed: () => Navigator.pushNamed(context, MyRoutes.purposepageRoute),
+                        onPressed: () =>
+                          { 
+                              if (_formKey.currentState!.validate()) {
+                                Navigator.pushNamed(context, MyRoutes.purposepageRoute),
+                              },
+                          },
                         child: Text('Next'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.teal,
