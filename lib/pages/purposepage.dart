@@ -85,7 +85,7 @@ class _PurposeState extends State<Purpose> {
               label,
               style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.teal,),
             ),
-            Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.08,),
+            Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.03,),
           ],
         ),
       ),
