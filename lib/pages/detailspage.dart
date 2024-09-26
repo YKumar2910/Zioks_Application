@@ -166,7 +166,7 @@ class _DetailsState extends State<Details> {
                                   context, MyRoutes.companySearchRoute),
                             },
                           },
-                        child: Text('Next'),
+                        child: Text('Next', style: TextStyle(color: Colors.white),),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.teal,
                           padding: EdgeInsets.symmetric(
