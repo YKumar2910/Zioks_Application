@@ -47,7 +47,7 @@ class _DetailsState extends State<Details> {
                     Text(
                       'Please fill the following information',
                       style: TextStyle(
-                        fontSize: screenWidth * 0.02397,
+                        fontSize: screenWidth * 0.031,
                         color: Color.fromRGBO(0, 176, 147, 1),
                       ),
                     ),
@@ -219,6 +219,7 @@ class _DetailsState extends State<Details> {
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           decoration: InputDecoration(
             hintText: label,
+            hintStyle: TextStyle(fontSize: 15, color: Colors.grey.shade700),
             border: UnderlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             floatingLabelBehavior: FloatingLabelBehavior.never,
