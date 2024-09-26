@@ -73,14 +73,27 @@ class _OpeningPageState extends State<OpeningPage> {
               );
             },
 
-            child: Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationY(3.14), // Flip image horizontally
-              child: Image.asset(
-                'assets/images/logout (1).png', // Use the same image as check-in
-                width: screenWidth * 0.25, // Adjust size based on screen width
-                height: screenHeight * 0.15, // Adjust size based on screen height
-              ),
+            child: Column(
+              children: [
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(3.14), // Flip image horizontally
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/logout (1).png', // Use the same image as check-in
+                        width: screenWidth * 0.25, // Adjust size based on screen width
+                        height: screenHeight * 0.15, // Adjust size based on screen height
+                      ),
+                    ],
+                  ),
+                ),
+                Text('Check-Out',
+                style: TextStyle(
+                  color: Color.fromRGBO(0, 176, 147, 1),
+                  fontSize: 22
+                ),),
+              ],
             ),
           ),
 
@@ -93,10 +106,19 @@ class _OpeningPageState extends State<OpeningPage> {
                 MaterialPageRoute(builder: (context) => CheckInScanQR()),
               );
             },
-            child: Image.asset(
-              'assets/images/logout (1).png', // Ensure correct file name
-              width: screenWidth * 0.25, // Adjust size based on screen width
-              height: screenHeight * 0.15, // Adjust size based on screen height
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/logout (1).png', // Ensure correct file name
+                  width: screenWidth * 0.25, // Adjust size based on screen width
+                  height: screenHeight * 0.15, // Adjust size based on screen height
+                ),
+                Text('Check-In',
+                  style: TextStyle(
+                      color: Color.fromRGBO(0, 176, 147, 1),
+                      fontSize: 22
+                  ),),
+              ],
             ),
           ),
         ],

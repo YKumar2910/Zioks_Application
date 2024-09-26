@@ -13,10 +13,12 @@ class PhoneNumber extends StatefulWidget {
 
 class _PhoneNumberState extends State<PhoneNumber> {
   final TextEditingController _controller = TextEditingController(); // Controller for the TextField
+  String _validationMessage = ""; // Validation message
 
   void _input(String text) {
     setState(() {
       _controller.text += text; // Append the tapped number to the TextField
+      _validationMessage = ""; // Clear validation message
     });
   }
 
@@ -29,6 +31,12 @@ class _PhoneNumberState extends State<PhoneNumber> {
   }
 
   void _done() {
+    if (_controller.text.length != 10) { // Validate phone number
+      setState(() {
+        _validationMessage = "Please enter a valid 10-digit mobile number"; // Set validation message
+      });
+      return;
+    }
     print("Done with number: ${_controller.text}");
     // Handle the done action, such as submitting the phone number or navigating
   }
@@ -46,6 +54,17 @@ class _PhoneNumberState extends State<PhoneNumber> {
             _CheckIn(screenHeight * 0.05), // Adjusted for screen height
             _ToggleButton(screenWidth * 0.8), // Adjusted for screen width
             _MobileNumber(screenWidth * 0.9), // Adjusted for screen width
+            if (_validationMessage.isNotEmpty) // Display validation message
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  _validationMessage,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
             _NextButton(screenWidth * 0.4, context), // Adjusted for screen width
             _KeyPad(screenWidth * 0.6, screenHeight * 0.6), // Adjusted for screen width
           ],
@@ -184,7 +203,6 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
-
   Widget _MobileNumber(double containerWidth) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
@@ -221,7 +239,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
             Expanded(
               child: TextField(
                 controller: _controller,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.none,
                 decoration: InputDecoration(
                   hintText: 'Enter Mobile Number',
                   border: UnderlineInputBorder(
@@ -283,30 +301,31 @@ class _PhoneNumberState extends State<PhoneNumber> {
   Widget _buildButton(String text, double containerWidth, {VoidCallback? onPressed}) {
     double buttonSize = containerWidth * 0.2; // Button size as 25% of container width
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Container(
-        width: buttonSize,
-        height: buttonSize, // Ensure the container is square
-        margin: EdgeInsets.all(4.0),
-        child: ElevatedButton(
-          onPressed: onPressed ?? () => _input(text),
-          style: ElevatedButton.styleFrom(
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(buttonSize * 0.3), // Padding relative to button size
-            side: BorderSide(color: Colors.black, width: 1),
-          ),
-          child: FittedBox( // Ensures text scales well with the button size
-            fit: BoxFit.scaleDown,
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: buttonSize * 0.4, // Text size is 40% of button size
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
+        padding: const EdgeInsets.only(top: 20),
+        child: Container(
+            width: buttonSize,
+            height: buttonSize, // Ensure the container is square
+            margin: EdgeInsets.all(4.0),
+            child: ElevatedButton(
+            onPressed: onPressed ?? () => _input(text),
+    style: ElevatedButton.styleFrom(
+    shape: CircleBorder(),
+    padding: EdgeInsets.all(buttonSize * 0.3), // Padding relative to button size
+    side: BorderSide(color: Colors.black, width: 1),
+    ),
+    child: FittedBox( // Ensures text scales well with the button size
+    fit: BoxFit.scaleDown,
+    child: Text(
+    text,
+      style: TextStyle(
+        fontSize: 24, // Text size
+        color: Colors.black,
       ),
+    ),
+    ),
+            ),
+        ),
     );
   }
 }
+
