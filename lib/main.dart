@@ -9,6 +9,7 @@ import 'pages/checkInScanQR.dart';
 import 'pages/checkOut.dart';
 import 'pages/visitor_info.dart';
 import 'routes.dart';
+import 'pages/company_search.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.deatilspageRoute: (context) => Details(),
         MyRoutes.purposepageRoute: (context) => Purpose(),
         MyRoutes.userphotoRoute: (context) => UserPhoto(),
-        MyRoutes.visitorinfoRoute: (context) => VisitorInfo(),
+        MyRoutes.companySearchRoute: (context) => CompanySearch(),
       },
     );
   }

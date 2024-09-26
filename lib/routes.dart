@@ -6,6 +6,5 @@ class MyRoutes {
   static String checkOutRoute = "/checkOut";
   static String deatilspageRoute = "/deatilspage";
   static String purposepageRoute = "/purposepage";
-  static String visitorinfoRoute = "/visitorinfo";
-  static String confirmationRoute = "/confirmation";
+  static String companySearchRoute = "/companysearch";
 }

@@ -150,9 +150,11 @@ class _DetailsState extends State<Details> {
                       child: ElevatedButton(
                         onPressed: () =>
                           { 
-                              if (_formKey.currentState!.validate()) {
-                                Navigator.pushNamed(context, MyRoutes.purposepageRoute),
-                              },
+                              if (_formKey.currentState!.validate())
+                            {
+                              Navigator.pushNamed(
+                                  context, MyRoutes.companySearchRoute),
+                            },
                           },
                         child: Text('Next'),
                         style: ElevatedButton.styleFrom(
