@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zioks_application/const_values_file.dart';
-import 'package:zioks_application/pages/user_photo.dart';
+import 'package:zioks_application/pages/opening_page.dart';
 
 // ignore: must_be_immutable
 class ConfirmationPage extends StatefulWidget {
@@ -96,7 +96,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context){
-                          return UserPhoto(); //Replace with HomePage class
+                          return const OpeningPage();
                         }
                       )
                     );

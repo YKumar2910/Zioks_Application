@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
-import 'package:flutter_typeahead/flutter_typeahead.dart'; 
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:zioks_application/pages/visitor_info.dart'; 
 
 // ignore: must_be_immutable
 class AutoTextField extends StatelessWidget {
@@ -73,6 +74,10 @@ class AutoTextField extends StatelessWidget {
       },
       onSelected: (suggestion) {
         cont.text = suggestion;
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) {
+            return const VisitorInfo();
+        }));
       },
     );
   }
