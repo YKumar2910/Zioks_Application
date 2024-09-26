@@ -28,6 +28,22 @@ class _VisitorInfoState extends State<VisitorInfo> {
     visitingtextcontroller = TextEditingController();
   }
 
+  Widget errorMessage(double screenWidth){
+    double fontSizeTextSmall = screenWidth < 600 ? 12 : 13;
+
+    return Padding(
+
+      padding: const EdgeInsets.all(2.0),
+      child:  Text(
+        "This field is necessary",
+        style: TextStyle(
+          color: const Color.fromARGB(255, 170, 9, 1),
+          fontSize: fontSizeTextSmall
+        ),
+      ),
+    );
+  }
+
   void onSubmit(){
     if (_formkey.currentState!.validate()) {
       if (selectedReason[0].isEmpty){
@@ -91,11 +107,12 @@ class _VisitorInfoState extends State<VisitorInfo> {
                     cont: companytextcontroller, 
                     message: "Enter your company name",
                     emptyMessage: "This field is necessary",
+                    fontsize: fontSizeTextSmall,
                   ),
         
                   const SizedBox(height: 16),
         
-                  TextWidget(message: "Purpose of visit.", fontsize: fontSizeTextSmall),
+                  TextWidget(message: "Purpose of visit.  ", fontsize: fontSizeTextSmall),
         
                   
                   ChipWidget(
@@ -105,26 +122,17 @@ class _VisitorInfoState extends State<VisitorInfo> {
                     ,selectedReason
                   ),
                   if (reasonSelected==false)
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child:  Text(
-                        "This field is necessary",
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 170, 9, 1),
-                          fontSize: fontSizeTextSmall*.80
-                        ),
-                      ),
-                    ),
+                    errorMessage(screenWidth),
         
                   const SizedBox(height: 16),
         
-                  TextWidget(message: "Who do you wish to meet?", fontsize: fontSizeTextSmall),
-        
-                  const SizedBox(height: 16),
+                  TextWidget(message: "Who do you wish to meet? ", fontsize: fontSizeTextSmall),
+
                   TextFieldWidget(
                     cont: visitingtextcontroller, 
-                    message: "Enter the name of the Employee you wish to visit",
+                    message: "Enter the name of the Employee you wish to visit.  ",
                     emptyMessage: "This field is necessary",
+                    fontsize: fontSizeTextSmall,
                   ),
                   const Spacer(),
                   Center(
