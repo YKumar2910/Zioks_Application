@@ -3,6 +3,7 @@ import 'package:zioks_application/const_values_file.dart';
 import 'package:zioks_application/pages/confirmation_page.dart';
 import 'package:zioks_application/widgets/custom_chip_widget.dart';
 import 'package:zioks_application/widgets/custom_widget.dart';
+import 'package:zioks_application/pages/checkOut.dart';
 
 class VisitorInfo extends StatefulWidget {
   const VisitorInfo({super.key});
@@ -54,9 +55,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
           reasonSelected=true;
           Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) {
-          return ConfirmationPage(
-            text: "Kshitij Jaiswal\n$exitnote",
-          );
+          return Checkout();
         }));
       }
     } else {

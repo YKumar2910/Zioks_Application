@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zioks_application/const_values_file.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
+import 'package:zioks_application/pages/confirmation_page.dart';
 
 class Checkout extends StatefulWidget {
   const Checkout({super.key});
@@ -11,10 +13,12 @@ class Checkout extends StatefulWidget {
 
 class _CheckoutState extends State<Checkout> {
   final TextEditingController _controller = TextEditingController(); // Controller for the TextField
+  String? _errorMessage; // Variable to hold the error message
 
   void _input(String text) {
     setState(() {
       _controller.text += text; // Append the tapped number to the TextField
+      _errorMessage = null; // Reset error message when typing
     });
   }
 
@@ -27,8 +31,14 @@ class _CheckoutState extends State<Checkout> {
   }
 
   void _done() {
-    print("Done with number: ${_controller.text}");
-    // Handle the done action, such as submitting the phone number or navigating
+    if (_controller.text.length != 10) {
+      setState(() {
+        _errorMessage = "Please enter a valid Mobile Number"; // Set error message
+      });
+    } else {
+      print("Done with number: ${_controller.text}");
+      // Handle the done action, such as submitting the phone number or navigating
+    }
   }
 
   @override
@@ -44,7 +54,16 @@ class _CheckoutState extends State<Checkout> {
             CheckOutText(screenHeight * 0.05), // Adjusted for screen height
             _ToggleButton(screenWidth * 0.8), // Adjusted for screen width
             _MobileNumber(screenWidth * 0.9), // Adjusted for screen width
-            _NextButton(screenWidth * 0.4), // Adjusted for screen width
+            if (_errorMessage != null) ...[ // Display error message if exists
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Text(
+                  _errorMessage!,
+                  style: TextStyle(color: Colors.red), // Error message in red color
+                ),
+              ),
+            ],
+            _NextButton(screenWidth * 0.4, context), // Adjusted for screen width
             _KeyPad(screenWidth * 0.6, screenHeight * 0.6), // Adjusted for screen width
           ],
         ),
@@ -137,38 +156,49 @@ class _CheckoutState extends State<Checkout> {
     );
   }
 
-  Widget _NextButton(double buttonWidth) {
+  Widget _NextButton(double buttonWidth, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40, right: 25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            width: buttonWidth,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(0, 176, 147, 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Next',
-                  style: TextStyle(
-                    fontSize: 20,
+          GestureDetector(
+            onTap: () {
+              if (_controller.text.length == 10) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ConfirmationPage(text: "Kshitij Jaiswal\n$exitnote")),
+                );
+              } else {
+                _done(); // Trigger validation if Next is pressed without a valid number
+              }
+            },
+            child: Container(
+              width: buttonWidth,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(0, 176, 147, 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Next',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 45),
+                  Icon(
+                    Icons.arrow_forward,
                     color: Colors.white,
                   ),
-                ),
-                SizedBox(width: 45),
-                IconButton(
-                  color: Colors.white,
-                  icon: Icon(Icons.arrow_forward),
-                  onPressed: _done,
-                ),
-              ],
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -210,7 +240,7 @@ class _CheckoutState extends State<Checkout> {
             Expanded(
               child: TextField(
                 controller: _controller,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.none,
                 decoration: InputDecoration(
                   hintText: 'Enter Mobile Number',
                   border: UnderlineInputBorder(
@@ -270,28 +300,25 @@ class _CheckoutState extends State<Checkout> {
   }
 
   Widget _buildButton(String text, double containerWidth, {VoidCallback? onPressed}) {
-    double buttonSize = containerWidth * 0.2; // Button size as 25% of container width
+    double buttonSize = containerWidth * 0.2;
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Container(
         width: buttonSize,
-        height: buttonSize, // Ensure the container is square
+        height: buttonSize,
         margin: EdgeInsets.all(4.0),
         child: ElevatedButton(
           onPressed: onPressed ?? () => _input(text),
           style: ElevatedButton.styleFrom(
             shape: CircleBorder(),
-            padding: EdgeInsets.all(buttonSize * 0.3), // Padding relative to button size
+            padding: EdgeInsets.all(buttonSize * 0.3),
             side: BorderSide(color: Colors.black, width: 1),
           ),
-          child: FittedBox( // Ensures text scales well with the button size
+          child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               text,
-              style: TextStyle(
-                fontSize: buttonSize * 0.4, // Text size is 40% of button size
-                color: Colors.black,
-              ),
+              style: TextStyle(fontSize: 24),
             ),
           ),
         ),
