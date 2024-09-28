@@ -37,11 +37,19 @@ class AutoTextField extends StatelessWidget {
     "Pwc",
     "SAP",
   ];
+  Future<List<String>> getMatches(String pattern) async{
+    List<String> matches=[];
+    matches.addAll(suggestionsList);
+    matches.retainWhere((s)=>s.toLowerCase().contains(pattern.toLowerCase()));
+    return matches;
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    return TypeAheadField(
+    return TypeAheadField<String>(
+      hideOnEmpty: true,
+      
       builder: (context,controller,focusNode){
         return TextField(
           controller: controller,
@@ -55,11 +63,9 @@ class AutoTextField extends StatelessWidget {
           autofocus: true,
         );
       },
-      suggestionsCallback: (pattern) {
+      suggestionsCallback: (pattern) async {
         if (pattern.length >= 3) {
-          return suggestionsList.where((item) =>
-                  item.toLowerCase().contains(pattern.toLowerCase()))
-                  as FutureOr<List<Object?>?>;
+          return await getMatches(pattern);
         } else{
           return [];
         }
@@ -72,12 +78,13 @@ class AutoTextField extends StatelessWidget {
           ),
         );
       },
+      
       onSelected: (suggestion) {
         cont.text = suggestion;
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) {
             return const VisitorInfo();
-        }));
+          }));
       },
     );
   }
