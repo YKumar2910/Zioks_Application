@@ -39,6 +39,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   fluentui_system_icons: ^1.1.257
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
