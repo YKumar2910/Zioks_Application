@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:zioks_application/token_provider.dart';
 import 'pages/user_photo.dart';
 import 'pages/opening_page.dart';
 import 'pages/purposepage.dart';
@@ -20,19 +22,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: OpeningPage(),
-      initialRoute: MyRoutes.openingpageRoute,
-      routes: {
-        MyRoutes.openingpageRoute: (context) => OpeningPage(),
-        MyRoutes.checkInScanQRRoute: (context) => CheckInScanQR(),
-        MyRoutes.CheckInPhoneRoute: (context) => PhoneNumber(),
-        MyRoutes.checkOutRoute: (context) => Checkout(),
-        MyRoutes.deatilspageRoute: (context) => Details(),
-        MyRoutes.purposepageRoute: (context) => Purpose(),
-        MyRoutes.userphotoRoute: (context) => UserPhoto(),
-        MyRoutes.companySearchRoute: (context) => CompanySearch(),
+    return Provider(
+      create: (context){
+        return TokenProvider();
       },
+      child: MaterialApp(
+        home: OpeningPage(),
+        initialRoute: MyRoutes.openingpageRoute,
+        routes: {
+          MyRoutes.openingpageRoute: (context) => OpeningPage(),
+          MyRoutes.checkInScanQRRoute: (context) => CheckInScanQR(),
+          MyRoutes.CheckInPhoneRoute: (context) => PhoneNumber(),
+          MyRoutes.checkOutRoute: (context) => Checkout(),
+          MyRoutes.deatilspageRoute: (context) => Details(),
+          MyRoutes.purposepageRoute: (context) => Purpose(),
+          MyRoutes.userphotoRoute: (context) => UserPhoto(),
+          MyRoutes.companySearchRoute: (context) => CompanySearch(),
+        },
+      ),
     );
   }
 }
