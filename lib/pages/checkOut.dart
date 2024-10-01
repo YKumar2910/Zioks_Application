@@ -51,10 +51,10 @@ class _CheckoutState extends State<Checkout> {
       body: SafeArea(
         child: Column(
           children: [
-            CheckOutText(screenHeight * 0.05), // Adjusted for screen height
-            _ToggleButton(screenWidth * 0.8), // Adjusted for screen width
-            _MobileNumber(screenWidth * 0.9), // Adjusted for screen width
-            if (_errorMessage != null) ...[ // Display error message if exists
+            CheckOutText(screenHeight * 0.05),
+            _ToggleButton(screenWidth * 0.8),
+            _MobileNumber(screenWidth * 0.9),
+            if (_errorMessage != null) ...[
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Text(

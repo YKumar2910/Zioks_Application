@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/checkInOTP.dart';
-import 'package:zioks_application/pages/checkOut.dart';
 
 class PhoneNumber extends StatefulWidget {
   const PhoneNumber({super.key});
@@ -13,12 +12,12 @@ class PhoneNumber extends StatefulWidget {
 
 class _PhoneNumberState extends State<PhoneNumber> {
   final TextEditingController _controller = TextEditingController(); // Controller for the TextField
-  String _validationMessage = ""; // Validation message
+  String? _errorMessage; // Validation message
 
   void _input(String text) {
     setState(() {
       _controller.text += text; // Append the tapped number to the TextField
-      _validationMessage = ""; // Clear validation message
+      _errorMessage = null;  // Clear validation message
     });
   }
 
@@ -33,7 +32,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
   void _done() {
     if (_controller.text.length != 10) { // Validate phone number
       setState(() {
-        _validationMessage = "Please enter a valid 10-digit mobile number"; // Set validation message
+        _errorMessage = "Please enter a valid 10-digit mobile number"; // Set validation message
       });
       return;
     }
@@ -54,17 +53,15 @@ class _PhoneNumberState extends State<PhoneNumber> {
             _CheckIn(screenHeight * 0.05), // Adjusted for screen height
             _ToggleButton(screenWidth * 0.8), // Adjusted for screen width
             _MobileNumber(screenWidth * 0.9), // Adjusted for screen width
-            if (_validationMessage.isNotEmpty) // Display validation message
+            if (_errorMessage != null) ...[
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Text(
-                  _validationMessage,
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 16,
-                  ),
+                  _errorMessage!,
+                  style: TextStyle(color: Colors.red), // Error message in red color
                 ),
               ),
+            ],
             _NextButton(screenWidth * 0.4, context), // Adjusted for screen width
             _KeyPad(screenWidth * 0.6, screenHeight * 0.6), // Adjusted for screen width
           ],
@@ -166,11 +163,14 @@ class _PhoneNumberState extends State<PhoneNumber> {
         children: [
           GestureDetector(
             onTap: () {
-              // Navigate to OTP page
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CheckInOTP()),
-              );
+              if (_controller.text.length == 10) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CheckInOTP()),
+                );
+              } else {
+                _done(); // Trigger validation if Next is pressed without a valid number
+              }
             },
             child: Container(
               width: buttonWidth,
