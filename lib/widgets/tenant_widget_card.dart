@@ -19,7 +19,14 @@ class TenantWidgetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      
+      borderOnForeground: true,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: Colors.transparent, 
+          width: 0, 
+        ),
+        borderRadius: BorderRadius.circular(0),
+      ),
       color: Colors.white,
       
       child: Container(

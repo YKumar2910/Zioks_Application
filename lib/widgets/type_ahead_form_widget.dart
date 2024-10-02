@@ -74,7 +74,7 @@ class AutoTextField extends StatelessWidget {
         return ListTile(
           title: Text(
             suggestion,
-            style: TextStyle(fontSize: fontSize),
+            style: TextStyle(fontSize: fontSize, backgroundColor: Colors.white),
           ),
         );
       },
