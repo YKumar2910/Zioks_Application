@@ -80,7 +80,7 @@ class _UserPhotoState extends State<UserPhoto> {
                   onPressed: _takePhoto,
                   child: Text(
                     'Take Photo',
-                    style: TextStyle(fontSize: screenWidth * 0.05),
+                    style: TextStyle(fontSize: screenWidth * 0.05,color: Colors.white),
                   ),
                 ),
               ),
@@ -115,7 +115,7 @@ class _UserPhotoState extends State<UserPhoto> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.04)),
+                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.04,color: Colors.white)),
                           SizedBox(width: 7),
                           Icon(Icons.refresh, size: screenWidth * 0.04),
                         ],
@@ -137,7 +137,7 @@ class _UserPhotoState extends State<UserPhoto> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.04)),
+                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.04,color: Colors.white)),
                           SizedBox(width: 17),
                           Icon(Icons.arrow_forward, size: screenWidth * 0.04),
                         ],
