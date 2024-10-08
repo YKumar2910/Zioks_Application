@@ -36,6 +36,7 @@ class AutoTextField extends StatelessWidget {
     "Zioks",
     "Pwc",
     "SAP",
+    "CloudStrike"
   ];
   Future<List<String>> getMatches(String pattern) async{
     List<String> matches=[];
@@ -72,9 +73,11 @@ class AutoTextField extends StatelessWidget {
       },
       itemBuilder: (context, suggestion) {
         return ListTile(
+          tileColor: Colors.white,
+          selectedTileColor: Colors.grey,
           title: Text(
             suggestion,
-            style: TextStyle(fontSize: fontSize, backgroundColor: Colors.white),
+            style: TextStyle(fontSize: fontSize),
           ),
         );
       },
