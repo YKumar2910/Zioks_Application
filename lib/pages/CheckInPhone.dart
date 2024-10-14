@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/checkInOTP.dart';
+import 'package:http/http.dart' as http;
 
 class PhoneNumber extends StatefulWidget {
   const PhoneNumber({super.key});
@@ -154,7 +157,29 @@ class _PhoneNumberState extends State<PhoneNumber> {
       ),
     );
   }
-
+  Future<Map<String,dynamic>> callEndpoint() async{
+    final Map<String, dynamic> data = {
+      'phone_number': "+91${_controller.text}",
+    };
+    try {
+      final res=await http.post(Uri.parse(
+        'https://lab.stagingit.net/vms/api/visitors/otp/generate'
+        ),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: jsonEncode(data)
+      );
+      final resDecode=jsonDecode(res.body);
+      if(resDecode["statusCode"]!=200){
+          throw resDecode['message'];
+      }
+      print(resDecode);
+      return resDecode; 
+      } on Exception catch (e) {
+        throw e.toString();
+    }
+  }
   Widget _NextButton(double buttonWidth, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40, right: 25),
@@ -162,11 +187,12 @@ class _PhoneNumberState extends State<PhoneNumber> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           GestureDetector(
-            onTap: () {
+            onTap: () async{
               if (_controller.text.length == 10) {
+                var response=await callEndpoint();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CheckInOTP()),
+                  MaterialPageRoute(builder: (context) => CheckInOTP(number: '+91${_controller.text}',otp:  response['data']['otp'])),
                 );
               } else {
                 _done(); // Trigger validation if Next is pressed without a valid number

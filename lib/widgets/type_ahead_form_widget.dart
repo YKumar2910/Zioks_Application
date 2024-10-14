@@ -49,7 +49,7 @@ class AutoTextField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TypeAheadField<String>(
-      hideOnEmpty: true,
+      
       
       builder: (context,controller,focusNode){
         return TextField(
@@ -61,7 +61,7 @@ class AutoTextField extends StatelessWidget {
             hintText:message
           ),
           focusNode: focusNode,
-          autofocus: true,
+          
         );
       },
       suggestionsCallback: (pattern) async {
@@ -75,6 +75,9 @@ class AutoTextField extends StatelessWidget {
         return ListTile(
           tileColor: Colors.white,
           selectedTileColor: Colors.grey,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8))
+          ),
           title: Text(
             suggestion,
             style: TextStyle(fontSize: fontSize),
