@@ -1,4 +1,5 @@
 import 'package:zioks_application/pages/visitor_info.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 import 'package:zioks_application/widgets/tenant_widget_card.dart';
 import 'package:zioks_application/widgets/type_ahead_form_widget.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _CompanySearchState extends State<CompanySearch> {
             double screenWidth = constraints.maxWidth;
             double screenHeight = constraints.maxHeight;
         
-            double fontSizeTitle = screenWidth < 600 ? 20 : 25;
+            //double fontSizeTitle = screenWidth < 600 ? 20 : 25;
             double fontSizeTextSmall = screenWidth < 600 ? 15 : 20;
             
             return Column(
@@ -41,15 +42,11 @@ class _CompanySearchState extends State<CompanySearch> {
                 children: [
                   const Spacer(),
                   Container(
-                    
                     alignment: Alignment.center,
-                    child: Text(
-                      "Tenant",
-                      style: TextStyle(
-                        fontSize: fontSizeTitle,
-                        color: Colors.teal.shade400,
-                      )
-                    ),
+                    child: HeaderWidget(
+                      message: "Tenant",
+                      screenWidth: screenWidth,
+                    )
                   ),
                   const Spacer(),
                       

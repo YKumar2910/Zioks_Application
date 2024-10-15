@@ -50,7 +50,7 @@ class AutoTextField extends StatelessWidget {
 
     return TypeAheadField<String>(
       
-      
+      hideOnEmpty: true,
       builder: (context,controller,focusNode){
         return TextField(
           controller: controller,

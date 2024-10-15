@@ -1,17 +1,14 @@
-import 'dart:convert';
+import 'package:zioks_application/endpoint_caller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/user_photo.dart';
-import 'package:http/http.dart' as http;
 
 
 class CheckInOTP extends StatefulWidget {
   final dynamic number;
-  
-  final dynamic otp;
 
-  const CheckInOTP({super.key,required this.number,required this.otp});
+  const CheckInOTP({super.key,required this.number});
 
   @override
   State<CheckInOTP> createState() => _CheckInOTPState();
@@ -21,37 +18,6 @@ class _CheckInOTPState extends State<CheckInOTP> {
   final List<TextEditingController> _controllers =
   List.generate(6, (_) => TextEditingController());
   int _currentIndex = 0;
-  String formOTP(){
-    String s='';
-    for(int i=0;i<6;i++){
-      s+=_controllers[i].text;
-    }
-    return s;
-  }
-  Future<Map<String,dynamic>> callEndpoint() async{
-    final Map<String, dynamic> data = {
-      'phone_number': widget.number as String,
-      'otp': formOTP()
-    };
-    try {
-      final res=await http.post(Uri.parse(
-        'https://lab.stagingit.net/vms/api/visitors/otp/verify'
-        ),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: jsonEncode(data)
-      );
-      final resDecode=jsonDecode(res.body);
-      if(resDecode["statusCode"]!=200){
-          throw resDecode['message'];
-      }
-      return resDecode; 
-      } on Exception catch (e) {
-        throw e.toString();
-    }
-  }
-
 
   void _input(String text) {
     if (_currentIndex < 6) {
@@ -77,9 +43,9 @@ class _CheckInOTPState extends State<CheckInOTP> {
     });
   }
 
-  void _done() {
+  String _done() {
     String otp = _controllers.map((e) => e.text).join();
-    print("Done with OTP: $otp");
+    return otp;
     // Handle the done action, such as submitting the OTP or navigating
   }
 
@@ -123,7 +89,7 @@ class _CheckInOTPState extends State<CheckInOTP> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
               child: Text(
-                'Please enter OTP sent to: +91 9133056036',
+                'Please enter OTP sent to: ${widget.number}',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: screenWidth * 0.045,
@@ -222,8 +188,12 @@ class _CheckInOTPState extends State<CheckInOTP> {
             SizedBox(width: screenWidth * 0.02),
             GestureDetector(
               onTap: () async{
-                final response=await callEndpoint();
-                print(response);
+                /*final Map<String, dynamic> data = {
+                  'phone_number': widget.number as String,
+                  'otp': _done()
+                };
+                final response=await EndpointCaller.postCallEndpoint("otp/verify",data);
+                print(response);*/
                 Navigator.push(
                   context,
                   MaterialPageRoute(
