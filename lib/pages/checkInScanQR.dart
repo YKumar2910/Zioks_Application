@@ -98,7 +98,7 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
             onTap: () {
               Navigator.pushNamed(
                 context,
-                MyRoutes.CheckInPhoneRoute
+                MyRoutes.openingpageRoute
               );
             },
             child: Container(

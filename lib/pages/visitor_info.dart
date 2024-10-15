@@ -89,12 +89,10 @@ class _VisitorInfoState extends State<VisitorInfo> {
                 children: [
                   const Spacer(),
                   Center(
-                    child: Text(
-                      "Please fill the following information",
-                      style: TextStyle(
-                        fontSize: fontSizeTitle,
-                        color: Colors.teal.shade400,
-                      )
+                    child: HeaderWidget(
+                      message: "Please fill the following information",
+                      screenWidth: screenWidth,
+                      fontSize: fontSizeTitle,
                     )
                   ),
                   const Spacer(),

@@ -101,9 +101,9 @@ class _OpeningPageState extends State<OpeningPage> {
           // Adjust space between icons
           GestureDetector(
             onTap: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(builder: (context) => CheckInScanQR()),
+                MyRoutes.CheckInPhoneRoute
               );
             },
             child: Column(

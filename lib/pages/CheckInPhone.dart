@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zioks_application/endpoint_caller.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/checkInOTP.dart';
+import 'package:http/http.dart' as http;
 
 class PhoneNumber extends StatefulWidget {
   const PhoneNumber({super.key});
@@ -162,11 +166,15 @@ class _PhoneNumberState extends State<PhoneNumber> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           GestureDetector(
-            onTap: () {
+            onTap: () async{
               if (_controller.text.length == 10) {
+                /*final Map<String, dynamic> data = {
+                  'phone_number': "+91${_controller.text}",
+                };
+                var response=await EndpointCaller.postCallEndpoint('/otp/generate',data);*/
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CheckInOTP()),
+                  MaterialPageRoute(builder: (context) => CheckInOTP(number: '+91${_controller.text}')),
                 );
               } else {
                 _done(); // Trigger validation if Next is pressed without a valid number
