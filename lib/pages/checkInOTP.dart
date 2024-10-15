@@ -1,9 +1,14 @@
+import 'package:zioks_application/endpoint_caller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/user_photo.dart';
 
+
 class CheckInOTP extends StatefulWidget {
-  const CheckInOTP({super.key});
+  final dynamic number;
+
+  const CheckInOTP({super.key,required this.number});
 
   @override
   State<CheckInOTP> createState() => _CheckInOTPState();
@@ -11,14 +16,14 @@ class CheckInOTP extends StatefulWidget {
 
 class _CheckInOTPState extends State<CheckInOTP> {
   final List<TextEditingController> _controllers =
-  List.generate(5, (_) => TextEditingController());
+  List.generate(6, (_) => TextEditingController());
   int _currentIndex = 0;
 
   void _input(String text) {
-    if (_currentIndex < 5) {
+    if (_currentIndex < 6) {
       setState(() {
         _controllers[_currentIndex].text = text;
-        if (_currentIndex < 4) {
+        if (_currentIndex < 5) {
           _currentIndex++;
         }
       });
@@ -38,9 +43,9 @@ class _CheckInOTPState extends State<CheckInOTP> {
     });
   }
 
-  void _done() {
+  String _done() {
     String otp = _controllers.map((e) => e.text).join();
-    print("Done with OTP: $otp");
+    return otp;
     // Handle the done action, such as submitting the OTP or navigating
   }
 
@@ -84,7 +89,7 @@ class _CheckInOTPState extends State<CheckInOTP> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
               child: Text(
-                'Please enter OTP sent to: +91 9133056036',
+                'Please enter OTP sent to: ${widget.number}',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: screenWidth * 0.045,
@@ -133,7 +138,7 @@ class _CheckInOTPState extends State<CheckInOTP> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(5, (index) => _buildOTPField(index)),
+          children: List.generate(6, (index) => _buildOTPField(index)),
         ),
         SizedBox(height: screenHeight * 0.02), // Space between OTP and buttons
         Row(
@@ -182,7 +187,13 @@ class _CheckInOTPState extends State<CheckInOTP> {
             ),
             SizedBox(width: screenWidth * 0.02),
             GestureDetector(
-              onTap: () {
+              onTap: () async{
+                /*final Map<String, dynamic> data = {
+                  'phone_number': widget.number as String,
+                  'otp': _done()
+                };
+                final response=await EndpointCaller.postCallEndpoint("otp/verify",data);
+                print(response);*/
                 Navigator.push(
                   context,
                   MaterialPageRoute(
