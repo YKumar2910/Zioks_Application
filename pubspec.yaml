@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   image_picker: ^1.0.8
-
+  camera: ^0.10.5+9
   flutter_svg : ^2.0.10+1
   flutter_typeahead: ^5.2.0
 
@@ -40,6 +40,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   fluentui_system_icons: ^1.1.257
   provider: ^6.1.2
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:

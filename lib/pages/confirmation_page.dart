@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zioks_application/const_values_file.dart';
 import 'package:zioks_application/pages/opening_page.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 
 // ignore: must_be_immutable
 class ConfirmationPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           double screenHeight = constraints.maxHeight;
 
           // Define breakpoints
-          double fontSizeTitle = screenWidth < 600 ? 24 : 30;
+          //double fontSizeTitle = screenWidth < 600 ? 24 : 30;
           double fontSizeTextLarge = screenWidth < 600 ? 30 : 40;
           double fontSizeTextSmall = screenWidth < 600 ? 18 : 25;
           double imageWidth = screenWidth < 600 ? screenWidth * 0.55 : 350;
@@ -41,12 +42,9 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Spacer(),
-                Text(
-                  "Confirmation",
-                  style: TextStyle(
-                    fontSize: fontSizeTitle,
-                    color: Colors.teal.shade400,
-                  ),
+                HeaderWidget(
+                  message: "Confirmation",
+                  screenWidth: screenWidth,
                 ),
                 const Spacer(),
                 SizedBox(

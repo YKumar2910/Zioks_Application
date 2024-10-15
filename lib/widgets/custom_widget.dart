@@ -82,3 +82,21 @@ class TextWidget extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
+class HeaderWidget extends StatelessWidget {
+  final String message;
+  final double screenWidth;
+  double? fontSize;
+  HeaderWidget({super.key,required this.message, required this.screenWidth,this.fontSize});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+    message,
+    style: TextStyle(
+          fontSize: fontSize ?? (screenWidth< 600 ? 25 : 30),
+          color: Colors.teal.shade400,
+      )
+    );
+  }
+}
