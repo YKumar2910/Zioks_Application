@@ -43,15 +43,15 @@ class _DetailsState extends State<Details> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: screenHeight * 0.02),
+                    // SizedBox(height: screenHeight * 0.02),
                     Text(
                       'Please fill the following information',
                       style: TextStyle(
-                        fontSize: screenWidth * 0.031,
+                        fontSize: screenWidth * 0.058,
                         color: Color.fromRGBO(0, 176, 147, 1),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.05),
+                    SizedBox(height: screenHeight * 0.08),
                     _buildTextFormField(
                       label: 'First Name',
                       controller: _firstNameController,

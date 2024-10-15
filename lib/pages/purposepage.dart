@@ -47,13 +47,13 @@ class _PurposeState extends State<Purpose> {
                           alignment: Alignment.centerRight,
                           child: Text(
                             'Last Activity: 18-09-2024',
-                            style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: screenWidth*0.02),
+                            style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: screenWidth*0.03),
                           ),
                         ),
                       ),
                       SizedBox(height: screenHeight * 0.05), // Spacing between Purpose cards
                     ],
-                  );
+                  );  
                 }).toList(),
               ],
             ),
