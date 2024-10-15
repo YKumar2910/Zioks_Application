@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
+import 'package:camera/camera.dart';
 import 'package:zioks_application/routes.dart';
 
 class UserPhoto extends StatefulWidget {
@@ -12,16 +12,71 @@ class UserPhoto extends StatefulWidget {
 
 class _UserPhotoState extends State<UserPhoto> {
   File? _image;
-  final ImagePicker _picker = ImagePicker();
+  CameraController? _controller;
+  Future<void>? _initializeControllerFuture;
+  late List<CameraDescription> cameras;
+  CameraDescription? selectedCamera;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeCamera();
+  }
+
+  Future<void> _initializeCamera() async {
+    try {
+      cameras = await availableCameras();
+      if (cameras.isNotEmpty) {
+        selectedCamera = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+
+        _controller = CameraController(
+          selectedCamera!,
+          ResolutionPreset.high,
+        );
+        _initializeControllerFuture = _controller!.initialize();
+        setState(() {}); // Refresh the UI after initialization
+      } else {
+        print('No cameras available');
+      }
+    } catch (e) {
+      print('Error initializing camera: $e');
+    }
+  }
 
   Future<void> _takePhoto() async {
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    try {
+      await _initializeControllerFuture;
 
-    if (pickedFile != null) {
+      final XFile imageFile = await _controller!.takePicture();
       setState(() {
-        _image = File(pickedFile.path);
+        _image = File(imageFile.path);
+      });
+    } catch (e) {
+      print('Error taking photo: $e');
+    }
+  }
+
+  void _switchCamera() {
+    if (cameras.isNotEmpty) {
+      setState(() {
+        selectedCamera = (selectedCamera!.lensDirection == CameraLensDirection.front)
+            ? cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.back)
+            : cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+
+
+        _controller = CameraController(
+          selectedCamera!,
+          ResolutionPreset.high,
+        );
+        _initializeControllerFuture = _controller!.initialize();
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,20 +105,37 @@ class _UserPhotoState extends State<UserPhoto> {
               SizedBox(height: screenHeight * 0.05),
 
               _image == null
-                  ? Container(
-                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                child: Image(
-                  image: AssetImage('assets/images/personimage.jpeg'),
-                  height: screenHeight * 0.3,
-                  width: screenWidth * 0.5,
-                ),
-              )
+                  ? FutureBuilder<void>(
+                      future: _initializeControllerFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (_controller != null) {
+                            return Container(
+                              height: screenHeight * 0.3,
+                              width: screenWidth * 0.5,
+                              decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                              child: CameraPreview(_controller!),
+                            );
+                          } else {
+                            return Center(
+                              child: Text('No camera found'),
+                            );
+                          }
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text('Error initializing camera'),
+                          );
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    )
                   : Image.file(
-                _image!,
-                height: screenHeight * 0.3,
-                width: screenWidth * 0.5,
-                fit: BoxFit.cover,
-              ),
+                      _image!,
+                      height: screenHeight * 0.3,
+                      width: screenWidth * 0.5,
+                      fit: BoxFit.cover,
+                    ),
 
               SizedBox(height: screenHeight * 0.05),
 
@@ -80,7 +152,7 @@ class _UserPhotoState extends State<UserPhoto> {
                   onPressed: _takePhoto,
                   child: Text(
                     'Take Photo',
-                    style: TextStyle(fontSize: screenWidth * 0.05,color: Colors.white),
+                    style: TextStyle(fontSize: screenWidth * 0.05, color: Colors.white),
                   ),
                 ),
               ),
@@ -100,24 +172,17 @@ class _UserPhotoState extends State<UserPhoto> {
                         ),
                         backgroundColor: Colors.teal.shade400,
                       ),
-                      onPressed: () async {
+                      onPressed: () {
                         setState(() {
                           _image = null;
                         });
-
-                        final XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
-                        if (pickedFile != null) {
-                          setState(() {
-                            _image = File(pickedFile.path);
-                          });
-                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.04,color: Colors.white)),
+                          Text('Retake', style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white)),
                           SizedBox(width: 7),
-                          Icon(Icons.refresh, size: screenWidth * 0.04,color: Colors.white),
+                          Icon(Icons.refresh, size: screenWidth * 0.04, color: Colors.white),
                         ],
                       ),
                     ),
@@ -137,9 +202,9 @@ class _UserPhotoState extends State<UserPhoto> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.04,color: Colors.white)),
+                          Text('Next', style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white)),
                           SizedBox(width: 17),
-                          Icon(Icons.arrow_forward, size: screenWidth * 0.04,color: Colors.white),
+                          Icon(Icons.arrow_forward, size: screenWidth * 0.04, color: Colors.white),
                         ],
                       ),
                     ),
@@ -148,6 +213,28 @@ class _UserPhotoState extends State<UserPhoto> {
               ),
 
               SizedBox(height: screenHeight * 0.05),
+
+              SizedBox(
+                width: screenWidth * 0.4,
+                height: screenHeight * 0.08,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: Colors.teal.shade400,
+                  ),
+                  onPressed: _switchCamera,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Switch Camera', style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white)),
+                      SizedBox(width: 10),
+                      Icon(Icons.switch_camera, size: screenWidth * 0.04, color: Colors.white),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

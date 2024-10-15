@@ -70,7 +70,8 @@ class _CompanySearchState extends State<CompanySearch> {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
-                      "\t\t\t\t\tSearch Organization you wish to visit...",
+                      "Search Organization you wish to visit...",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: fontSizeTextSmall,
                         color: Colors.black,
