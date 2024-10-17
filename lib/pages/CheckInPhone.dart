@@ -130,7 +130,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CheckInScanQR()),
+                      MaterialPageRoute(builder: (context) => CheckInScanQR(text: "Check-In")),
                     );
                   },
                   child: Container(

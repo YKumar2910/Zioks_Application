@@ -27,11 +27,12 @@ class MyApp extends StatelessWidget {
         return TokenProvider();
       },
       child: MaterialApp(
+        theme: ThemeData.light(useMaterial3: true),
+        themeMode: ThemeMode.light,
         home: OpeningPage(),
         initialRoute: MyRoutes.openingpageRoute,
         routes: {
           MyRoutes.openingpageRoute: (context) => OpeningPage(),
-          MyRoutes.checkInScanQRRoute: (context) => CheckInScanQR(),
           MyRoutes.CheckInPhoneRoute: (context) => PhoneNumber(),
           MyRoutes.checkOutRoute: (context) => Checkout(),
           MyRoutes.deatilspageRoute: (context) => Details(),

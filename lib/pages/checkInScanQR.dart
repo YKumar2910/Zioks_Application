@@ -4,7 +4,8 @@ import 'package:zioks_application/pages/CheckInPhone.dart';
 import 'package:zioks_application/routes.dart';
 
 class CheckInScanQR extends StatefulWidget {
-  const CheckInScanQR({super.key});
+  final String text;
+  const CheckInScanQR({super.key,required this.text});
 
   @override
   State<CheckInScanQR> createState() => _CheckInScanQRState();
@@ -66,7 +67,7 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
           SizedBox(height: screenHeight * 0.03),
 
           Text(
-            "SCAN QR TO CHECK IN",
+            "SCAN QR TO ${widget.text}",
             style: TextStyle(
               fontSize: screenWidth * 0.06, // Adjust font size based on screen width
               color: Colors.black,
