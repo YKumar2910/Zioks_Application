@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
         initialRoute: MyRoutes.openingpageRoute,
         routes: {
           MyRoutes.openingpageRoute: (context) => OpeningPage(),
-          MyRoutes.checkInScanQRRoute: (context) => CheckInScanQR(),
           MyRoutes.CheckInPhoneRoute: (context) => PhoneNumber(),
           MyRoutes.checkOutRoute: (context) => Checkout(),
           MyRoutes.deatilspageRoute: (context) => Details(),

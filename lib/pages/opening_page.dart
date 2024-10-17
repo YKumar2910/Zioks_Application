@@ -67,9 +67,9 @@ class _OpeningPageState extends State<OpeningPage> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.push(
                 context,
-                MyRoutes.checkOutRoute
+                MaterialPageRoute(builder: (context) => Checkout()),
               );
             },
 

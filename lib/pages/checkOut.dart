@@ -127,7 +127,7 @@ class _CheckoutState extends State<Checkout> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CheckInScanQR()),
+                      MaterialPageRoute(builder: (context) => CheckInScanQR(text: "Check-Out")),
                     );
                   },
                   child: Container(
