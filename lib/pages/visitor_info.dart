@@ -133,7 +133,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
                   Center(
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.teal.shade400,
+                        backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                         fixedSize: Size(buttonWidth, buttonHeight),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(7.5))

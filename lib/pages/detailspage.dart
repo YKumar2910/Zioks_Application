@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zioks_application/routes.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 
 class Details extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _DetailsState extends State<Details> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    double formWidth = screenWidth < 600 ? screenWidth * 0.9 : 500;
+    double formWidth = screenWidth * 0.8 ;
 
     return Scaffold(
       body: SafeArea(
@@ -44,26 +45,26 @@ class _DetailsState extends State<Details> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     // SizedBox(height: screenHeight * 0.02),
-                    Text(
-                      'Please fill the following information',
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.058,
-                        color: Color.fromRGBO(0, 176, 147, 1),
-                      ),
-                    ),
+                    Center(
+                    child: HeaderWidget(
+                      message: "Please fill the following information",
+                      screenWidth: screenWidth,
+                      fontSize: screenWidth*0.04,
+                    )
+                  ),
                     SizedBox(height: screenHeight * 0.08),
                     _buildTextFormField(
                       label: 'First Name',
                       controller: _firstNameController,
                       validatorMessage: 'Please enter your first name',
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight*0.025),
                     _buildTextFormField(
                       label: 'Last Name',
                       controller: _lastNameController,
                       validatorMessage: 'Please enter your last name',
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight*0.025),
                     _buildTextFormField(
                       label: 'Email ID',
                       controller: _emailController,
@@ -78,13 +79,13 @@ class _DetailsState extends State<Details> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight*0.025),
                     _buildTextFormField(
                       label: 'Address',
                       controller: _addressController,
                       validatorMessage: 'Please enter your address',
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: screenHeight*0.025),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -100,7 +101,7 @@ class _DetailsState extends State<Details> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 8),
+                        SizedBox(height: screenHeight*0.015),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -155,7 +156,7 @@ class _DetailsState extends State<Details> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 25),
+                    SizedBox(height: screenHeight*0.06),
                     Center(
                       child: ElevatedButton(
                         onPressed: () =>
@@ -168,13 +169,13 @@ class _DetailsState extends State<Details> {
                           },
                         child: Text('Next', style: TextStyle(color: Colors.white),),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                           padding: EdgeInsets.symmetric(
                             horizontal: 40,
                             vertical: 16,
                           ),
                           textStyle: TextStyle(
-                            fontSize: 16,
+                            fontSize: 25,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -216,10 +217,10 @@ class _DetailsState extends State<Details> {
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           decoration: InputDecoration(
             hintText: label,
-            hintStyle: TextStyle(fontSize: 15, color: Colors.grey.shade700),
+            hintStyle: TextStyle(fontSize: 20, color: Colors.grey.shade700, fontWeight: FontWeight.normal),
             border: UnderlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             floatingLabelBehavior: FloatingLabelBehavior.never,

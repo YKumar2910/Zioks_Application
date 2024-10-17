@@ -66,7 +66,7 @@ class TextWidget extends StatelessWidget {
             text: message,
             style: TextStyle(
               fontSize: fontsize,
-              color: Colors.teal.shade400,
+              color: Color.fromRGBO(0, 176, 147, 1),
             ),
           ),
           TextSpan(
@@ -95,7 +95,7 @@ class HeaderWidget extends StatelessWidget {
     message,
     style: TextStyle(
           fontSize: fontSize ?? (screenWidth< 600 ? 25 : 30),
-          color: Colors.teal.shade400,
+          color: Color.fromRGBO(0, 176, 147, 1),
       )
     );
   }

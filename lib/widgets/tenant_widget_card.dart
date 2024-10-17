@@ -57,7 +57,7 @@ class TenantWidgetCard extends StatelessWidget {
                 fontSize: fontSize
               ),
              ),
-             Icon(Icons.arrow_forward, color: Colors.teal.shade400,)
+             Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1),)
           ],
         ),
       ),

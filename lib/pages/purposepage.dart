@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:zioks_application/routes.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 
 class Purpose extends StatefulWidget {
   @override
@@ -25,10 +26,13 @@ class _PurposeState extends State<Purpose> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: screenHeight*0.1,),
-                Text(
-                  'Please select your purpose',
-                  style: TextStyle(fontSize: screenWidth * 0.06, color: Color.fromRGBO(0, 176, 147, 1)),
-                ),
+
+                HeaderWidget(message: 'Please select your purpose', screenWidth: screenWidth),
+
+                // Text(
+                //   'Please select your purpose',
+                //   style: TextStyle(fontSize: screenWidth * 0.06, color: Color.fromRGBO(0, 176, 147, 1)),
+                // ),
                 SizedBox(height: screenHeight * 0.2),
                 
                 // Cards have been created dynamically using the list.
@@ -83,7 +87,7 @@ class _PurposeState extends State<Purpose> {
             Icon(Icons.person, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.08),
             Text(
               label,
-              style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.teal,),
+              style: TextStyle(fontSize: screenWidth * 0.045, color: Color.fromRGBO(0, 176, 147, 1),),
             ),
             Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.05,),
           ],
