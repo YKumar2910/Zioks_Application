@@ -82,8 +82,8 @@ class _CompanySearchState extends State<CompanySearch> {
                   Container(
                     alignment: Alignment.center,
                     width: screenWidth,
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth*0.10),
-                    height: screenHeight/2,
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth*(screenWidth<600?0.10:.15)),
+                    height: screenHeight/1.75,
                     child: ListView.builder(
                       itemCount: 5,
                       itemBuilder: (context,index){

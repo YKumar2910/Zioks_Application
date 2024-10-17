@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
         return TokenProvider();
       },
       child: MaterialApp(
+        theme: ThemeData.light(useMaterial3: true),
+        themeMode: ThemeMode.light,
         home: OpeningPage(),
         initialRoute: MyRoutes.openingpageRoute,
         routes: {

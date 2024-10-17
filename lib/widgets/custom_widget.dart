@@ -94,7 +94,7 @@ class HeaderWidget extends StatelessWidget {
     return Text(
     message,
     style: TextStyle(
-          fontSize: fontSize ?? (screenWidth< 600 ? 25 : 30),
+          fontSize: fontSize ?? (screenWidth< 600 ? 30 : 35),
           color: Colors.teal.shade400,
       )
     );
