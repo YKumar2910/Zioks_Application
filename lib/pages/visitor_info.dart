@@ -75,11 +75,11 @@ class _VisitorInfoState extends State<VisitorInfo> {
             double screenWidth = constraints.maxWidth;
             double screenHeight = constraints.maxHeight;
         
-            double fontSizeTitle = screenWidth < 600 ? 20 : 25;
+            double fontSizeTitle = screenWidth < 600 ? 20 : 35;
             double fontSizeTextSmall = screenWidth < 600 ? 15 : 20;
             double chipSize = screenHeight * 0.1;
             double buttonWidth = screenWidth < 600 ? screenWidth * 0.5 : 300;
-            double buttonHeight = screenWidth < 600 ? 25 : 50;
+            double buttonHeight = screenWidth < 600 ? 25 : 35;
             
             return Container(
               margin: const EdgeInsets.all(8),

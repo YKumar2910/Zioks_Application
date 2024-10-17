@@ -18,47 +18,51 @@ class TenantWidgetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      borderOnForeground: true,
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(
-          color: Colors.transparent, 
-          width: 0, 
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Card(
+        borderOnForeground: true,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(
+            color: Colors.transparent, 
+            width: 0, 
+          ),
+          borderRadius: BorderRadius.circular(0),
         ),
-        borderRadius: BorderRadius.circular(0),
-      ),
-      color: Colors.white,
-      
-      child: Container(
-        decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.black, 
-                width: 2.0,
+        color: Colors.white,
+        
+        child: Container(
+          decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.black, 
+                  width: 2.0,
+                ),
               ),
             ),
-          ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-             Padding(
-               padding: const EdgeInsets.symmetric(vertical: 4),
-               child: Image(
-                height: height,
-                width: width,
-                image:AssetImage(
-                  imageMapper["cloudNetwork"]
-                )
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+               Padding(
+                 padding: const EdgeInsets.symmetric(vertical: 4),
+                 child: Image(
+                  height: height,
+                  width: width,
+                  image:AssetImage(
+                    imageMapper["cloudNetwork"]
+                  )
+                 ),
                ),
-             ),
-             Text(
-              "Tenant",
-              style: TextStyle(
-                fontSize: fontSize
-              ),
-             ),
-             Icon(Icons.arrow_forward, color: Colors.teal.shade400,)
-          ],
+               Text(
+                "Tenant",
+                style: TextStyle(
+                  fontSize: fontSize>=height*.5?fontSize:height*.5,
+                  fontWeight: FontWeight.w300
+                ),
+               ),
+               Icon(Icons.arrow_forward, color: Colors.teal.shade400,size: height*.5,weight: 10,)
+            ],
+          ),
         ),
       ),
     );
