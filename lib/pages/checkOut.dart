@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/const_values_file.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/confirmation_page.dart';
-import 'package:zioks_application/pages/checkOutScanQR.dart';
 
 class Checkout extends StatefulWidget {
   const Checkout({super.key});
