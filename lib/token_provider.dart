@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 
 class TokenProvider extends ChangeNotifier {
-  late String _token;
-  void setToken(String token){
-    _token=token;
+  late String _accessToken;
+  void setaccessToken(String token){
+    _accessToken=token;
     notifyListeners();
   }
-  String getToken(){
-    return _token;
+  String getaccessToken(){
+    return _accessToken;
   }
+
+  late String _refreshToken;
+  void setrefreshToken(String token){
+    _refreshToken=token;
+    notifyListeners();
+  }
+  String getrefreshToken(){
+    return _refreshToken;
+  }
+
 }
