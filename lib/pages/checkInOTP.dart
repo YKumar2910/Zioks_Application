@@ -1,8 +1,10 @@
+import 'package:provider/provider.dart';
 import 'package:zioks_application/endpoint_caller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/user_photo.dart';
+import 'package:zioks_application/token_provider.dart';
 
 
 class CheckInOTP extends StatefulWidget {
@@ -193,7 +195,8 @@ class _CheckInOTPState extends State<CheckInOTP> {
                   'otp': _done()
                 };
                 final response=await EndpointCaller.postCallEndpoint("otp/verify",data);
-                print(response);*/
+                print(response);
+                Provider.of<TokenProvider>(context,listen: false).setToken(response["data"]["accessToken"]);*/
                 Navigator.push(
                   context,
                   MaterialPageRoute(

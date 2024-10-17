@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:zioks_application/routes.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 
 class UserPhoto extends StatefulWidget {
   @override
@@ -94,13 +95,15 @@ class _UserPhotoState extends State<UserPhoto> {
             children: [
               SizedBox(height: screenHeight * 0.05),
 
-              Text(
-                'User Photo',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.1,
-                  color: Colors.teal.shade400,
-                ),
-              ),
+              HeaderWidget(message: 'User Photo', screenWidth: screenWidth),
+
+              // Text(
+              //   'User Photo',
+              //   style: TextStyle(
+              //     fontSize: screenWidth * 0.1,
+              //     color: Color.fromRGBO(0, 176, 147, 1),
+              //   ),
+              // ),
 
               SizedBox(height: screenHeight * 0.05),
 
@@ -147,7 +150,7 @@ class _UserPhotoState extends State<UserPhoto> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    backgroundColor: Colors.teal.shade400,
+                    backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                   ),
                   onPressed: _takePhoto,
                   child: Text(
@@ -170,7 +173,7 @@ class _UserPhotoState extends State<UserPhoto> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        backgroundColor: Colors.teal.shade400,
+                        backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                       ),
                       onPressed: () {
                         setState(() {
@@ -196,7 +199,7 @@ class _UserPhotoState extends State<UserPhoto> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        backgroundColor: Colors.teal.shade400,
+                        backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                       ),
                       onPressed: () => Navigator.pushNamed(context, MyRoutes.purposepageRoute),
                       child: Row(
@@ -222,7 +225,7 @@ class _UserPhotoState extends State<UserPhoto> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    backgroundColor: Colors.teal.shade400,
+                    backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                   ),
                   onPressed: _switchCamera,
                   child: Row(
