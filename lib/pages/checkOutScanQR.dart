@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zioks_application/pages/CheckInPhone.dart';
-import 'package:zioks_application/routes.dart';
+import 'package:zioks_application/pages/confirmation_page.dart';
 
-class CheckInScanQR extends StatefulWidget {
-  final String text;
-  const CheckInScanQR({super.key,required this.text});
+class CheckOutScanQR extends StatefulWidget {
+  const CheckOutScanQR({super.key});
 
   @override
-  State<CheckInScanQR> createState() => _CheckInScanQRState();
+  State<CheckOutScanQR> createState() => _CheckOutScanQRState();
 }
 
-class _CheckInScanQRState extends State<CheckInScanQR> {
+class _CheckOutScanQRState extends State<CheckOutScanQR> {
   @override
   Widget build(BuildContext context) {
     // Get screen width and height for responsiveness
@@ -67,7 +65,7 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
           SizedBox(height: screenHeight * 0.03),
 
           Text(
-            "SCAN QR TO ${widget.text}",
+            "SCAN QR TO CHECK OUT",
             style: TextStyle(
               fontSize: screenWidth * 0.06, // Adjust font size based on screen width
               color: Colors.black,
@@ -97,9 +95,9 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
 
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.push(
                 context,
-                MyRoutes.openingpageRoute
+                MaterialPageRoute(builder: (context) => ConfirmationPage(text: "Kshitij Jaiswal")),
               );
             },
             child: Container(
