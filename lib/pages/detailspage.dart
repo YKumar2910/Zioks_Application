@@ -106,15 +106,18 @@ class _DetailsState extends State<Details> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CountryCodePicker(
-                                mode: CountryCodePickerMode.dialog,
-                                onChanged: (country) {
-                                  print('Country code selected: ${country.code}');
-                                },
-                                initialSelection: '+91',
-                                showFlag: true,
-                                showDropDownButton: true,
-                              ),
+                            SizedBox(
+                              width: formWidth*0.04,
+                              child: CountryCodePicker(
+                                  mode: CountryCodePickerMode.dialog,
+                                  onChanged: (country) {
+                                    print('Country code selected: ${country.code}');
+                                  },
+                                  initialSelection: '+91',
+                                  showFlag: true,
+                                  showDropDownButton: true,
+                                ),
+                            ),
                             SizedBox(width: 8),
                             Expanded(
                               child: TextFormField(

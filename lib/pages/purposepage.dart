@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:zioks_application/routes.dart';
+import 'package:zioks_application/token_provider.dart';
 import 'package:zioks_application/widgets/custom_widget.dart';
+import 'package:zioks_application/endpoint_caller.dart';
 
 class Purpose extends StatefulWidget {
   @override
@@ -10,12 +13,25 @@ class Purpose extends StatefulWidget {
 }
 
 class _PurposeState extends State<Purpose> {
+  Map<String, dynamic>? purposeData;
+
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Move the fetchPurposes logic here to avoid the error
+    fetchPurposes().then((data) {
+      setState(() {
+        purposeData = data;
+      });
+    }).catchError((error) {
+      throw Exception('Failed to load purpose: $error');
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
-    List<String> purposeList = ['Official', 'Vendor', 'Personal', 'Others'];//Dynamic list for the purpose of visit
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -29,36 +45,45 @@ class _PurposeState extends State<Purpose> {
 
                 HeaderWidget(message: 'Please select your purpose', screenWidth: screenWidth),
 
-                // Text(
-                //   'Please select your purpose',
-                //   style: TextStyle(fontSize: screenWidth * 0.06, color: Color.fromRGBO(0, 176, 147, 1)),
-                // ),
                 SizedBox(height: screenHeight * 0.2),
+
+                //Loader
+                //purposeData == null ? CircularProgressIndicator(): ...purposeData!.entries.map((purpose) {
+                  Column(
+                    children: purposeData == null
+                      ? [CircularProgressIndicator()]
+                      : purposeData!.entries.map((entry) {
+                          String purposeId = entry.key;
+                          String purposeName = entry.value[0];
+                          String lastActivity = entry.value[1];
+                          
+                          return Column(
+                            children: [
+                              buildCard(
+                                label: purposeName,
+                                onPressed: () {
+                                  Navigator.pushNamed(context, MyRoutes.deatilspageRoute);
+                                },
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: screenWidth * 0.05, right: screenWidth * 0.05, top: 8),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'Last Activity: $lastActivity', // Use the actual lastActivity variable
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(0, 176, 147, 1),
+                                      fontSize: screenWidth * 0.03,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: screenHeight * 0.05),
+                            ],
+                          );
+                        }).toList(),
+                  ),  
                 
-                // Cards have been created dynamically using the list.
-                ...purposeList.map((purpose) {
-                  return Column(
-                    children: [
-                      buildCard(
-                        label: purpose,
-                        onPressed: () {
-                          Navigator.pushNamed(context, MyRoutes.deatilspageRoute);
-                        },
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: screenWidth * 0.05, right: screenWidth * 0.05, top: 8), // Padding for the Last activity
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            'Last Activity: 18-09-2024',
-                            style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: screenWidth*0.03),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: screenHeight * 0.05), // Spacing between Purpose cards
-                    ],
-                  );  
-                }).toList(),
               ],
             ),
           ),
@@ -95,4 +120,49 @@ class _PurposeState extends State<Purpose> {
       ),
     );
   }
+
+  //Function to fetch the purpose data from the api
+Future<Map<String, dynamic>> fetchPurposes() async{
+  try{
+    String token= Provider.of<TokenProvider>(context).getaccessToken();
+    final response = await EndpointCaller.getCallEndpoint('visit-purposes', token);
+    print(response);
+    return Map<String, dynamic>.from(response['data']);
+  } catch (e) {
+    throw Exception('Failed to load purpose: $e');
+  }
 }
+
+}
+
+
+
+
+
+
+
+
+                    // purposeData == null ? CircularProgressIndicator(): ...purposeData!.entries.map((purpose) {
+                    // // children:
+                    // String purposeId = entry.key;
+                    // String purposeName = entry.value[0];
+                    // String lastActivity = entry.value[1];
+                    // [
+                    //   buildCard(
+                    //     label: purpose,
+                    //     onPressed: () {
+                    //       Navigator.pushNamed(context, MyRoutes.deatilspageRoute);
+                    //     },
+                    //   ),
+                    //   Padding(
+                    //     padding: EdgeInsets.only(left: screenWidth * 0.05, right: screenWidth * 0.05, top: 8), // Padding for the Last activity
+                    //     child: Align(
+                    //       alignment: Alignment.centerRight,
+                    //       child: Text(
+                    //         'Last Activity: 18-09-2024',
+                    //         style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: screenWidth*0.03),
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   SizedBox(height: screenHeight * 0.05), // Spacing between Purpose cards
+                    // ],}).toList(),
