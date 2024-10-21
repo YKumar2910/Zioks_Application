@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 class EndpointCaller {
-  static const String _url='https://lab.stagingit.net/vms/api/visitors/';
+  static const String _url='https://lab.stagingit.net/vms/backend/api/visitors/';
   static Future<Map<String,dynamic>> postCallEndpoint(String endpoint,Map<String,dynamic> data) async{
     
     try {

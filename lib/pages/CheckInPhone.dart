@@ -168,10 +168,10 @@ class _PhoneNumberState extends State<PhoneNumber> {
           GestureDetector(
             onTap: () async{
               if (_controller.text.length == 10) {
-                /*final Map<String, dynamic> data = {
+                final Map<String, dynamic> data = {
                   'phone_number': "+91${_controller.text}",
                 };
-                var response=await EndpointCaller.postCallEndpoint('/otp/generate',data);*/
+                var response=await EndpointCaller.postCallEndpoint('otp/generate',data);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CheckInOTP(number: '+91${_controller.text}')),

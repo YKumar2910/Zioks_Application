@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:provider/provider.dart';
 import 'package:zioks_application/endpoint_caller.dart';
 
@@ -190,13 +192,13 @@ class _CheckInOTPState extends State<CheckInOTP> {
             SizedBox(width: screenWidth * 0.02),
             GestureDetector(
               onTap: () async{
-                /*final Map<String, dynamic> data = {
+                final Map<String, dynamic> data = {
                   'phone_number': widget.number as String,
                   'otp': _done()
                 };
                 final response=await EndpointCaller.postCallEndpoint("otp/verify",data);
-                print(response);
-                Provider.of<TokenProvider>(context,listen: false).setToken(response["data"]["accessToken"]);*/
+                Provider.of<TokenProvider>(context,listen: false).setaccessToken(response["data"]["accessToken"]);
+                Provider.of<TokenProvider>(context,listen: false).setrefreshToken(response["data"]["refreshToken"]);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
