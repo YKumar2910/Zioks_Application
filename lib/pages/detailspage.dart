@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zioks_application/routes.dart';
 import 'package:zioks_application/widgets/custom_widget.dart';
+import 'package:country_code_picker_plus/country_code_picker_plus.dart';
 
 class Details extends StatefulWidget {
   @override
@@ -105,32 +106,15 @@ class _DetailsState extends State<Details> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 80,
-                              child: DropdownButtonFormField<String>(
-                                value: '+91',
-                                decoration: InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 13, horizontal: 10),
-                                ),
-                                icon: Icon(Icons.arrow_drop_down),
-                                items: ['+91', '+1', '+44'].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 21,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (String? newValue) {
-                                  setState(() {});
+                            CountryCodePicker(
+                                mode: CountryCodePickerMode.dialog,
+                                onChanged: (country) {
+                                  print('Country code selected: ${country.code}');
                                 },
+                                initialSelection: '+91',
+                                showFlag: true,
+                                showDropDownButton: true,
                               ),
-                            ),
                             SizedBox(width: 8),
                             Expanded(
                               child: TextFormField(
