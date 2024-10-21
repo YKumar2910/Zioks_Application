@@ -193,10 +193,11 @@ class _CheckInOTPState extends State<CheckInOTP> {
             GestureDetector(
               onTap: () async{
                 final Map<String, dynamic> data = {
-                  'phone_number': widget.number as String,
+                  'phoneNumber': widget.number as String,
                   'otp': _done()
                 };
                 final response=await EndpointCaller.postCallEndpoint("otp/verify",data);
+                print(response);
                 Provider.of<TokenProvider>(context,listen: false).setaccessToken(response["data"]["accessToken"]);
                 Provider.of<TokenProvider>(context,listen: false).setrefreshToken(response["data"]["refreshToken"]);
                 Navigator.push(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:country_code_picker_plus/country_code_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/endpoint_caller.dart';
@@ -169,9 +170,10 @@ class _PhoneNumberState extends State<PhoneNumber> {
             onTap: () async{
               if (_controller.text.length == 10) {
                 final Map<String, dynamic> data = {
-                  'phone_number': "+91${_controller.text}",
+                  'phoneNumber': "+91${_controller.text}",
                 };
                 var response=await EndpointCaller.postCallEndpoint('otp/generate',data);
+                print(response);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CheckInOTP(number: '+91${_controller.text}')),
@@ -212,6 +214,9 @@ class _PhoneNumberState extends State<PhoneNumber> {
   }
 
   Widget _MobileNumber(double containerWidth) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Container(
@@ -226,24 +231,19 @@ class _PhoneNumberState extends State<PhoneNumber> {
         ),
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Image.asset(
-                'assets/images/world_16397066.png',
-                width: 30,
-                height: 20,
+            SizedBox(
+              width: screenWidth * 0.2,
+              child: CountryCodePicker(
+                mode: CountryCodePickerMode.dialog,
+                onChanged: (country) {
+                  print('Country code selected: ${country.code}');
+                },
+                initialSelection: '+91',
+                showFlag: true,
+                showDropDownButton: true,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text(
-                '+91',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-              ),
-            ),
+            SizedBox(width: screenWidth*0.0001),
             Expanded(
               child: TextField(
                 controller: _controller,

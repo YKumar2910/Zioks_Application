@@ -14,16 +14,21 @@ class EndpointCaller {
       );
       final resDecode=jsonDecode(res.body);
       if(resDecode["statusCode"]!=200){
-          throw resDecode['message'];
+          print(resDecode['Wrong OTP']);
       }
       return resDecode; 
       } on Exception catch (e) {
         throw e.toString();
     }
   }
-  static Future<Map<String,dynamic>> getCallEndpoint(String endpoint) async{
+  static Future<Map<String,dynamic>> getCallEndpoint(String endpoint, String token) async{
     try {
-      final res=await http.get(Uri.parse(_url+endpoint));
+      final res=await http.get(Uri.parse(_url+endpoint),
+      headers: {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json', // Optional, depending on API needs
+      },
+      );
       final resDecode=jsonDecode(res.body);
       if(resDecode["statusCode"]!=200){
           throw resDecode['message'];
