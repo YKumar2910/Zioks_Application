@@ -107,7 +107,7 @@ class _DetailsState extends State<Details> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: formWidth*0.04,
+                              width: formWidth*0.15,
                               child: CountryCodePicker(
                                   mode: CountryCodePickerMode.dialog,
                                   onChanged: (country) {
