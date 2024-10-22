@@ -196,7 +196,7 @@ class _CheckInOTPState extends State<CheckInOTP> {
                   'phoneNumber': widget.number as String,
                   'otp': _done()
                 };
-                final response=await EndpointCaller.postCallEndpoint("otp/verify",data);
+                final response=await EndpointCaller.postCallEndpoint(endpoint:  "otp/verify",data:data);
                 print(response);
                 Provider.of<TokenProvider>(context,listen: false).setaccessToken(response["data"]["accessToken"]);
                 Provider.of<TokenProvider>(context,listen: false).setrefreshToken(response["data"]["refreshToken"]);

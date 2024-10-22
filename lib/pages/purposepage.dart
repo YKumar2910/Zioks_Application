@@ -125,7 +125,7 @@ class _PurposeState extends State<Purpose> {
 Future<Map<String, dynamic>> fetchPurposes() async{
   try{
     String token= Provider.of<TokenProvider>(context).getaccessToken();
-    final response = await EndpointCaller.getCallEndpoint('visit-purposes', token);
+    final response = await EndpointCaller.getCallEndpoint(endpoint:  'visit-purposes',token:  token);
     print(response);
     return Map<String, dynamic>.from(response['data']);
   } catch (e) {
