@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:zioks_application/endpoint_caller.dart';
 import 'package:zioks_application/routes.dart';
 import 'package:zioks_application/widgets/custom_widget.dart';
 
@@ -51,6 +52,7 @@ class _UserPhotoState extends State<UserPhoto> {
       final XFile imageFile = await _controller!.takePicture();
       setState(() {
         _image = File(imageFile.path);
+      if(imageFile==null){print("Null Photo");}
       });
     } catch (e) {
       print('Error taking photo: $e');
@@ -97,14 +99,6 @@ class _UserPhotoState extends State<UserPhoto> {
 
               HeaderWidget(message: 'User Photo', screenWidth: screenWidth),
 
-              // Text(
-              //   'User Photo',
-              //   style: TextStyle(
-              //     fontSize: screenWidth * 0.1,
-              //     color: Color.fromRGBO(0, 176, 147, 1),
-              //   ),
-              // ),
-
               SizedBox(height: screenHeight * 0.05),
 
               _image == null
@@ -112,7 +106,7 @@ class _UserPhotoState extends State<UserPhoto> {
                       future: _initializeControllerFuture,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          if (_controller != null) {
+                          if (_controller != null && _controller!.value.isInitialized) {
                             return Container(
                               height: screenHeight * 0.3,
                               width: screenWidth * 0.5,
@@ -152,7 +146,7 @@ class _UserPhotoState extends State<UserPhoto> {
                     ),
                     backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                   ),
-                  onPressed: _takePhoto,
+                  onPressed: (){if(_image==null){_takePhoto();}},
                   child: Text(
                     'Take Photo',
                     style: TextStyle(fontSize: screenWidth * 0.05, color: Colors.white),
@@ -201,7 +195,14 @@ class _UserPhotoState extends State<UserPhoto> {
                         ),
                         backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                       ),
-                      onPressed: () => Navigator.pushNamed(context, MyRoutes.purposepageRoute),
+                      onPressed: () {
+                          var response = EndpointCaller.postCallEndpoint(
+                            endpoint: 'upload-image',           
+                            contentType: "multipart/form-data", 
+                            imageFile: _image!,                 
+                          );
+                        Navigator.pushNamed(context, MyRoutes.purposepageRoute);
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -227,7 +228,9 @@ class _UserPhotoState extends State<UserPhoto> {
                     ),
                     backgroundColor: Color.fromRGBO(0, 176, 147, 1),
                   ),
-                  onPressed: _switchCamera,
+                  onPressed: (){
+                    if(_image==null){_switchCamera();}
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
