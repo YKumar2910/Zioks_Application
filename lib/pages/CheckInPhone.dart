@@ -172,7 +172,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 final Map<String, dynamic> data = {
                   'phoneNumber': "+91${_controller.text}",
                 };
-                var response=await EndpointCaller.postCallEndpoint('otp/generate',data);
+                var response=await EndpointCaller.postCallEndpoint(endpoint:  'otp/generate',data:  data);
                 print(response);
                 Navigator.push(
                   context,

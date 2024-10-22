@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 class EndpointCaller {
   static const String _url='https://lab.stagingit.net/vms/backend/api/visitors/';
-  static Future<Map<String,dynamic>> postCallEndpoint(String endpoint,Map<String,dynamic> data) async{
+  static Future<Map<String,dynamic>> postCallEndpoint({required String endpoint,required Map<String,dynamic>? data, String? token}) async{
     
     try {
       final res=await http.post(Uri.parse(_url+endpoint),
@@ -21,12 +21,12 @@ class EndpointCaller {
         throw e.toString();
     }
   }
-  static Future<Map<String,dynamic>> getCallEndpoint(String endpoint, String token) async{
+  static Future<Map<String,dynamic>> getCallEndpoint({required String endpoint,required String token}) async{
     try {
       final res=await http.get(Uri.parse(_url+endpoint),
       headers: {
       'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json', // Optional, depending on API needs
+      'Content-Type': 'application/json',
       },
       );
       final resDecode=jsonDecode(res.body);
