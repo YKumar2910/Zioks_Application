@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:country_code_picker_plus/country_code_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/endpoint_caller.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/checkInOTP.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 import 'package:http/http.dart' as http;
 
 class PhoneNumber extends StatefulWidget {
@@ -76,24 +76,28 @@ class _PhoneNumberState extends State<PhoneNumber> {
   }
 
   Widget _CheckIn(double topPadding) {
+    // Get screen width and height using MediaQuery
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Padding(
-      padding: EdgeInsets.only(top: topPadding, bottom: 10),
+      padding: EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            'Check-In',
-            style: TextStyle(
-              color: Color.fromRGBO(0, 176, 147, 1),
-              fontSize: 30,
-            ),
+        children: <Widget>[
+          SizedBox(height: screenHeight * 0.1),  // Adjust the height using screenHeight
+          HeaderWidget(
+            message: 'Check In',  // Use "Check In" as the message
+            screenWidth: screenWidth,  // Pass screenWidth to the HeaderWidget
           ),
         ],
       ),
     );
   }
 
+
+  // check in via mobile number or qr code
   Widget _ToggleButton(double containerWidth) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -160,6 +164,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
+  // phone number as input followed by the next button
   Widget _NextButton(double buttonWidth, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40, right: 25),
@@ -213,6 +218,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
+  // shows the keypad for entering the mobile number
   Widget _MobileNumber(double containerWidth) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -262,6 +268,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
+  // design of the keypad
   Widget _KeyPad(double containerWidth, double containerHeight) {
     return Padding(
       padding: const EdgeInsets.only(top: 50.0),

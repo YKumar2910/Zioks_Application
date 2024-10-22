@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/CheckInPhone.dart';
+import 'package:zioks_application/widgets/custom_widget.dart'; // Ensure HeaderWidget is defined here
 import 'package:zioks_application/routes.dart';
 
 class CheckInScanQR extends StatefulWidget {
   final String text;
-  const CheckInScanQR({super.key,required this.text});
+  const CheckInScanQR({super.key, required this.text});
 
   @override
   State<CheckInScanQR> createState() => _CheckInScanQRState();
@@ -23,7 +24,7 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
         child: Column(
           children: [
             _ZioksName(screenWidth, screenHeight),
-            _WelcomeToZioks(screenWidth),
+            _WelcomeToZioks(screenWidth, screenHeight),
             _CheckIn(screenWidth, screenHeight),
           ],
         ),
@@ -35,7 +36,11 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
     return Align(
       alignment: Alignment.topCenter, // Horizontally center and move to top
       child: Padding(
-        padding: EdgeInsets.only(top: screenHeight * 0.05, left: screenWidth * 0.1, right: screenWidth * 0.1),
+        padding: EdgeInsets.only(
+          top: screenHeight * 0.05,
+          left: screenWidth * 0.1,
+          right: screenWidth * 0.1,
+        ),
         child: SvgPicture.asset(
           "assets/images/zioks-color (1).svg", // Ensure correct file name
           width: screenWidth * 0.5, // Adjust size based on screen width
@@ -45,17 +50,18 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
     );
   }
 
-  Widget _WelcomeToZioks(double screenWidth) {
-    return Padding(
-      padding: EdgeInsets.all(screenWidth * 0.05),
-      child: Text(
-        "Welcome to ZIOKS",
-        style: TextStyle(
-          fontSize: screenWidth * 0.08, // Adjust font size based on screen width
-          color: Colors.black,
-          fontFamily: 'Sen',
+  Widget _WelcomeToZioks(double screenWidth, double screenHeight) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        HeaderWidget(
+          message: 'Welcome to ZIOKS',
+          screenWidth: screenWidth, // Pass screenWidth to the HeaderWidget
         ),
-      ),
+        Padding(
+          padding: EdgeInsets.all(screenWidth * 0.05),
+        ),
+      ],
     );
   }
 
@@ -99,7 +105,7 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
             onTap: () {
               Navigator.pushNamed(
                 context,
-                MyRoutes.openingpageRoute
+                MyRoutes.openingpageRoute,
               );
             },
             child: Container(

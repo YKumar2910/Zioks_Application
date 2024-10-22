@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/checkOut.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 import 'package:zioks_application/routes.dart';
 
 class OpeningPage extends StatefulWidget {
@@ -46,18 +47,20 @@ class _OpeningPageState extends State<OpeningPage> {
   }
 
   Widget _WelcomeToZioks(double screenWidth, double screenHeight) {
-    return Padding(
-      padding: EdgeInsets.all(screenWidth * 0.05),
-      child: Text(
-        "Welcome to ZIOKS",
-        style: TextStyle(
-          fontSize: screenWidth * 0.08, // Adjust font size based on screen width
-          color: Color.fromRGBO(0, 176, 147, 1),
-          fontFamily: 'Sen',
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        HeaderWidget(
+          message: 'Welcome to ZIOKS',
+          screenWidth: screenWidth,  // Pass screenWidth to the HeaderWidget
         ),
-      ),
+        Padding(
+          padding: EdgeInsets.all(screenWidth * 0.05),
+        ),
+      ],
     );
   }
+
 
   Widget _CheckInCheckOut(double screenWidth, double screenHeight) {
     return Padding(

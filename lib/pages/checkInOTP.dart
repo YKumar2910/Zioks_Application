@@ -2,10 +2,10 @@
 
 import 'package:provider/provider.dart';
 import 'package:zioks_application/endpoint_caller.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zioks_application/pages/user_photo.dart';
+import 'package:zioks_application/widgets/custom_widget.dart';
 import 'package:zioks_application/token_provider.dart';
 
 
@@ -81,14 +81,13 @@ class _CheckInOTPState extends State<CheckInOTP> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: screenHeight * 0.06),
-              child: Text(
-                'Check-In',
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 176, 147, 1),
-                  fontSize: screenWidth * 0.08,
-                ),
-              ),
             ),
+            // Add the HeaderWidget here
+            HeaderWidget(
+              message: 'Check-In', // Set the message to 'Check-In'
+              screenWidth: screenWidth,
+            ),
+
             SizedBox(height: screenHeight * 0.02),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
@@ -106,6 +105,7 @@ class _CheckInOTPState extends State<CheckInOTP> {
       ),
     );
   }
+
 
   Widget _BorderButton(double screenWidth, double screenHeight) {
     Widget _buildOTPField(int index) {
@@ -219,13 +219,13 @@ class _CheckInOTPState extends State<CheckInOTP> {
                     child: Row(
                       children: [
                         Text(
-                          'Proceed Unverified',
+                          'Proceed',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: screenWidth * 0.035,
                           ),
                         ),
-                        SizedBox(width: screenWidth * 0.01),
+                        SizedBox(width: screenWidth * 0.15),
                         Icon(
                           Icons.arrow_forward,
                           color: Colors.white,
