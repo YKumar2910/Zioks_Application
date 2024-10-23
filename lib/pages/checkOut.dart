@@ -81,7 +81,7 @@ class _CheckoutState extends State<Checkout> {
           Text(
             'Check-Out',
             style: TextStyle(
-              color: Color.fromRGBO(0, 176, 147, 1),
+              color: const Color.fromRGBO(0, 176, 147, 1),
               fontSize: 30,
             ),
           ),
@@ -106,7 +106,7 @@ class _CheckoutState extends State<Checkout> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(0, 176, 147, 1),
+                    color: const Color.fromRGBO(0, 176, 147, 1),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10),
@@ -177,7 +177,7 @@ class _CheckoutState extends State<Checkout> {
               width: buttonWidth,
               height: 50,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 176, 147, 1),
+                color: const Color.fromRGBO(0, 176, 147, 1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(

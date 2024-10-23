@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:provider/provider.dart';
 import 'package:zioks_application/endpoint_caller.dart';
 import 'package:zioks_application/routes.dart';
+import 'package:zioks_application/token_provider.dart';
 import 'package:zioks_application/widgets/custom_widget.dart';
 
 class UserPhoto extends StatefulWidget {
@@ -144,7 +146,7 @@ class _UserPhotoState extends State<UserPhoto> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    backgroundColor: Color.fromRGBO(0, 176, 147, 1),
+                    backgroundColor: const Color.fromRGBO(0, 176, 147, 1),
                   ),
                   onPressed: (){if(_image==null){_takePhoto();}},
                   child: Text(
@@ -167,7 +169,7 @@ class _UserPhotoState extends State<UserPhoto> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        backgroundColor: Color.fromRGBO(0, 176, 147, 1),
+                        backgroundColor: const Color.fromRGBO(0, 176, 147, 1),
                       ),
                       onPressed: () {
                         setState(() {
@@ -193,13 +195,15 @@ class _UserPhotoState extends State<UserPhoto> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        backgroundColor: Color.fromRGBO(0, 176, 147, 1),
+                        backgroundColor: const Color.fromRGBO(0, 176, 147, 1),
                       ),
-                      onPressed: () {
-                          var response = EndpointCaller.postCallEndpoint(
+                      onPressed: () async {
+                          String? token=Provider.of<TokenProvider>(context,listen: false).getaccessToken();;
+                          var response = await EndpointCaller.postCallEndpoint(
                             endpoint: 'upload-image',           
                             contentType: "multipart/form-data", 
                             imageFile: _image!,                 
+                            token: token                
                           );
                         Navigator.pushNamed(context, MyRoutes.purposepageRoute);
                       },
@@ -226,7 +230,7 @@ class _UserPhotoState extends State<UserPhoto> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    backgroundColor: Color.fromRGBO(0, 176, 147, 1),
+                    backgroundColor: const Color.fromRGBO(0, 176, 147, 1),
                   ),
                   onPressed: (){
                     if(_image==null){_switchCamera();}

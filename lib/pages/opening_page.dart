@@ -93,7 +93,7 @@ class _OpeningPageState extends State<OpeningPage> {
                 ),
                 Text('Check-Out',
                 style: TextStyle(
-                  color: Color.fromRGBO(0, 176, 147, 1),
+                  color: const Color.fromRGBO(0, 176, 147, 1),
                   fontSize: 22
                 ),),
               ],
@@ -118,7 +118,7 @@ class _OpeningPageState extends State<OpeningPage> {
                 ),
                 Text('Check-In',
                   style: TextStyle(
-                      color: Color.fromRGBO(0, 176, 147, 1),
+                      color: const Color.fromRGBO(0, 176, 147, 1),
                       fontSize: 22
                   ),),
               ],
