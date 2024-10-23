@@ -156,7 +156,7 @@ class _CheckInOTPState extends State<CheckInOTP> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                    color: Color.fromRGBO(0, 176, 147, 1), width: 2),
+                    color: const Color.fromRGBO(0, 176, 147, 1), width: 2),
               ),
               child: Center(
                 child: Padding(
@@ -194,9 +194,10 @@ class _CheckInOTPState extends State<CheckInOTP> {
               onTap: () async{
                 final Map<String, dynamic> data = {
                   'phoneNumber': widget.number as String,
-                  'otp': _done()
+                  'otp': Provider.of<TokenProvider>(context,listen: false).otp //_done()
                 };
                 final response=await EndpointCaller.postCallEndpoint(endpoint:  "otp/verify",data:data);
+                Provider.of<TokenProvider>(context,listen: false).setalreadyExist(response["data"]["is_Verified"]);
                 print(response);
                 Provider.of<TokenProvider>(context,listen: false).setaccessToken(response["data"]["accessToken"]);
                 Provider.of<TokenProvider>(context,listen: false).setrefreshToken(response["data"]["refreshToken"]);
@@ -210,7 +211,7 @@ class _CheckInOTPState extends State<CheckInOTP> {
                 height: screenHeight * 0.06,
                 width: screenWidth * 0.4,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(0, 176, 147, 1),
+                  color: const Color.fromRGBO(0, 176, 147, 1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(

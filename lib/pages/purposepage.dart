@@ -72,7 +72,7 @@ class _PurposeState extends State<Purpose> {
                                   child: Text(
                                     'Last Activity: $lastActivity', // Use the actual lastActivity variable
                                     style: TextStyle(
-                                      color: Color.fromRGBO(0, 176, 147, 1),
+                                      color: const Color.fromRGBO(0, 176, 147, 1),
                                       fontSize: screenWidth * 0.03,
                                     ),
                                   ),
@@ -101,7 +101,7 @@ class _PurposeState extends State<Purpose> {
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
 
-          border: Border.all(color: Color.fromRGBO(0, 176, 147, 1), width: screenWidth*0.003),
+          border: Border.all(color: const Color.fromRGBO(0, 176, 147, 1), width: screenWidth*0.003),
           borderRadius: BorderRadius.circular(10),
         ),
         // Card width is 90% of screen width
@@ -109,12 +109,12 @@ class _PurposeState extends State<Purpose> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.person, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.08),
+            Icon(Icons.person, color: const Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.08),
             Text(
               label,
-              style: TextStyle(fontSize: screenWidth * 0.045, color: Color.fromRGBO(0, 176, 147, 1),),
+              style: TextStyle(fontSize: screenWidth * 0.045, color: const Color.fromRGBO(0, 176, 147, 1),),
             ),
-            Icon(Icons.arrow_forward, color: Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.05,),
+            Icon(Icons.arrow_forward, color: const Color.fromRGBO(0, 176, 147, 1), size: screenWidth*0.05,),
           ],
         ),
       ),
@@ -126,8 +126,7 @@ Future<Map<String, dynamic>> fetchPurposes() async{
   try{
     String token= Provider.of<TokenProvider>(context).getaccessToken();
     final response = await EndpointCaller.getCallEndpoint(endpoint:  'visit-purposes',token:  token);
-    print(response);
-    return Map<String, dynamic>.from(response['data']);
+    return (response['data']);
   } catch (e) {
     throw Exception('Failed to load purpose: $e');
   }
@@ -160,7 +159,7 @@ Future<Map<String, dynamic>> fetchPurposes() async{
                     //       alignment: Alignment.centerRight,
                     //       child: Text(
                     //         'Last Activity: 18-09-2024',
-                    //         style: TextStyle(color: Color.fromRGBO(0, 176, 147, 1), fontSize: screenWidth*0.03),
+                    //         style: TextStyle(color: const Color.fromRGBO(0, 176, 147, 1), fontSize: screenWidth*0.03),
                     //       ),
                     //     ),
                     //   ),

@@ -1,10 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:country_code_picker_plus/country_code_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:zioks_application/endpoint_caller.dart';
 import 'package:zioks_application/pages/checkInScanQR.dart';
 import 'package:zioks_application/pages/checkInOTP.dart';
+import 'package:zioks_application/token_provider.dart';
 import 'package:zioks_application/widgets/custom_widget.dart';
 import 'package:http/http.dart' as http;
 
@@ -114,7 +118,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(0, 176, 147, 1),
+                    color: const Color.fromRGBO(0, 176, 147, 1),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10),
@@ -178,7 +182,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   'phoneNumber': "+91${_controller.text}",
                 };
                 var response=await EndpointCaller.postCallEndpoint(endpoint:  'otp/generate',data:  data);
-                print(response);
+                Provider.of<TokenProvider>(context,listen: false).setOTP(response["data"]["otp"]);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CheckInOTP(number: '+91${_controller.text}')),
@@ -191,7 +195,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
               width: buttonWidth,
               height: 50,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 176, 147, 1),
+                color: const Color.fromRGBO(0, 176, 147, 1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(

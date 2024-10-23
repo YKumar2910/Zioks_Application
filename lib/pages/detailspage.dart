@@ -156,7 +156,7 @@ class _DetailsState extends State<Details> {
                           },
                         child: Text('Next', style: TextStyle(color: Colors.white),),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(0, 176, 147, 1),
+                          backgroundColor: const Color.fromRGBO(0, 176, 147, 1),
                           padding: EdgeInsets.symmetric(
                             horizontal: 40,
                             vertical: 16,

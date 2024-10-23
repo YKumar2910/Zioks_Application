@@ -53,7 +53,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
           reasonSelected=true;
           Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) {
-          return ConfirmationPage(text: "Kshitij Jaiswal");
+          return ConfirmationPage(text: "");
         }));
       }
     } else {
@@ -133,7 +133,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
                   Center(
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(0, 176, 147, 1),
+                        backgroundColor: const Color.fromRGBO(0, 176, 147, 1),
                         fixedSize: Size(buttonWidth, buttonHeight),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(7.5))

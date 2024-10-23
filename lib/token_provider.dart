@@ -18,5 +18,17 @@ class TokenProvider extends ChangeNotifier {
   String getrefreshToken(){
     return _refreshToken;
   }
-
+  late dynamic _alreadyExist;
+  void setalreadyExist(dynamic isverified){
+    _alreadyExist=isverified;
+    notifyListeners();
+  }
+  dynamic getalreadyExist(){
+    return _alreadyExist;
+  }
+  late dynamic otp;
+  void setOTP(dynamic otp){
+    this.otp=otp;
+    notifyListeners();
+  }
 }

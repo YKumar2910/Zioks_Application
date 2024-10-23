@@ -113,7 +113,7 @@ class _CheckInScanQRState extends State<CheckInScanQR> {
               height: screenHeight * 0.06, // Adjust button size based on screen height
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 176, 147, 1),
+                color: const Color.fromRGBO(0, 176, 147, 1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
