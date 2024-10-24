@@ -6,6 +6,10 @@ class TokenProvider extends ChangeNotifier {
     _accessToken=token;
     notifyListeners();
   }
+  void deleteAccessToken(){
+    _accessToken="";
+    notifyListeners();
+  }
   String getaccessToken(){
     return _accessToken;
   }
@@ -13,6 +17,10 @@ class TokenProvider extends ChangeNotifier {
   late String _refreshToken;
   void setrefreshToken(String token){
     _refreshToken=token;
+    notifyListeners();
+  }
+  void deleteRefreshToken(){
+    _refreshToken="";
     notifyListeners();
   }
   String getrefreshToken(){
@@ -29,6 +37,10 @@ class TokenProvider extends ChangeNotifier {
   late dynamic otp;
   void setOTP(dynamic otp){
     this.otp=otp;
+    notifyListeners();
+  }
+  void deleteOTP(){
+    this.otp="";
     notifyListeners();
   }
 }
