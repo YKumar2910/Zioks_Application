@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ChipWidget extends StatefulWidget {
-  final List<String> reasons;
+  final Map<String,dynamic> reasons;
   
   final double fontsize;
   
@@ -31,13 +31,14 @@ class _ChipWidgetState extends State<ChipWidget> {
         scrollDirection: Axis.horizontal,
         itemCount:  widget.reasons.length,
         itemBuilder: (context,index){
-          
+          String purposeId = widget.reasons.keys.elementAt(index); 
+          String purposeName = widget.reasons[purposeId][0]!;
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2.0),
             child: GestureDetector(
               onTap: (){
                 setState(() {
-                  widget.selectedReason[0]=widget.reasons[index];
+                  widget.selectedReason[0]=purposeId;
                 });
               },
               child: Chip(
@@ -46,12 +47,12 @@ class _ChipWidgetState extends State<ChipWidget> {
                   side: BorderSide(width: 1, ),
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
-                backgroundColor: widget.reasons[index]==widget.selectedReason[0]?
+                backgroundColor: purposeId==widget.selectedReason[0]?
                 Colors.grey:Colors.white,
                 label: Text(
-                  widget.reasons[index],
+                  purposeName,
                   style: TextStyle(
-                    color: widget.reasons[index]==widget.selectedReason[0]?
+                    color: purposeId==widget.selectedReason[0]?
                     Colors.white:Colors.black,
                     fontSize: widget.fontsize
                   )
